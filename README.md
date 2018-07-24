@@ -1,6 +1,7 @@
 ### Prerequisites
-module.infra.resource_group_name: "git::ssh://git@bitbucket.org/morea/terraform.feature.azurerm.basic.infra.git?ref=v1.0.0"
-module.az-region.location|location-short: "git::ssh://git@bitbucket.org/morea/terraform.modules.azurerm.regions.git?ref=v1.0.0"
+
+* module.infra.resource_group_name: "git::ssh://git@bitbucket.org/morea/terraform.feature.azurerm.basic.infra.git?ref=v1.0.0"
+* module.az-region.location|location-short: "git::ssh://git@bitbucket.org/morea/terraform.modules.azurerm.regions.git?ref=v1.0.0"
 
 ### Module declaration
 
@@ -27,9 +28,10 @@ module "redis" {
 ### Module profile
 
 If you need to configure a redis-backup/redis-cluster/redis-cluster-backup, you should append the directory on your source declaration:
-- git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git//redis-backup
-- git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git//redis-cluster
-- git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git//redis-cluster-backup
+
+* "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git//redis-backup"
+* "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git//redis-cluster"
+* "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git//redis-cluster-backup"
 
 ## Inputs
 
