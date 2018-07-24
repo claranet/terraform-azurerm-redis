@@ -13,7 +13,7 @@ It is required for cluster feature.
 Terraform module declaration example:
 ```
 module "redis" {
-  source = "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git//redis-backup"
+  source = "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git//redis-cluster"
   client_name              = "${var.client_name}"
   azure_region             = "${module.az-region.location}"
   azure_region_short       = "${module.az-region.location-short}"
