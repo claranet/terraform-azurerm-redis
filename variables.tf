@@ -67,7 +67,7 @@ variable "redis_enable_ssl" {
 
 variable "redis_configuration" {
   type        = "map"
-  description = "Set of redis configuration, accepted parameters: maxmemory_reserved (default: 200), maxmemory_delta (default: 200), maxmemory_policy (default: allkeys-lru), backup_frequency (default: 60), snapshot_count (default: 1)"
+  description = "Set of redis configuration, accepted parameters: maxmemory_reserved (default: 10), maxmemory_delta (default: 2), maxmemory_policy (default: allkeys-lru), backup_frequency, snapshot_count"
 
   default = {
     maxmemory_reserved = 10
