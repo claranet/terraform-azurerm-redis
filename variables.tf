@@ -1,3 +1,17 @@
+variable "redis_cluster_enabled" {
+  description = "Enable cluster feature --> 0 (disabled) 1 (enabled)"
+  default     = 0
+}
+
+variable "redis_backup_enabled" {
+  description = "Enable backup feature --> 0 (disabled) 1 (enabled)"
+  default     = 0
+}
+
+variable "datadog_integration" {
+  description = "Enable datadog tags --> true/false"
+}
+
 variable "redis_name" {
   description = "Redis instance name"
 }
@@ -41,6 +55,11 @@ variable "redis_sku_name" {
   description = "Sku name: Basic, Standard, Premium"
 }
 
+variable "redis_shard_count" {
+  default     = "3"
+  description = "Number of shard wanted in case of cluster setup"
+}
+
 variable "redis_enable_ssl" {
   default     = "false"
   description = "Activate Ssl port (6789) of Redis instance"
@@ -54,12 +73,25 @@ variable "redis_configuration" {
     maxmemory_reserved = 10
     maxmemory_delta    = 2
     maxmemory_policy   = "allkeys-lru"
-    backup_frequency   = "60"
-    snapshot_count     = "10"
   }
 }
 
 variable "admin_cidrs" {
   type        = "list"
   description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> admin_cidrs"
+}
+
+variable "custom_tags" {
+  type        = "map"
+  description = "Map of custom tags"
+}
+
+variable "account_tier" {
+  default     = "Standard"
+  description = "Storage account for backup policy"
+}
+
+variable "account_replication_type" {
+  default     = "GRS"
+  description = "Type of storage replication : LRS,GRS,RAGRS,ZRS https://docs.microsoft.com/fr-fr/azure/storage/common/storage-redundancy"
 }
