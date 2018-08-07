@@ -19,7 +19,7 @@ module "redis" {
   environment         = "${var.environment}"
   stack               = "${var.stack}"
   resource_group_name = "${module.infra.resource_group_name}"
-  admin_cidrs         = "${var.admin_cidrs}"
+  authorized_cidrs    = "${var.admin_cidrs}"
 
   redis_name          = "${var.redis_name}"
   redis_enable_ssl    = "${var.redis_enable_ssl}"
@@ -49,17 +49,18 @@ If you need to configure a :
 * **redis-cluster** --> set **redis_cluster_enabled = "1"** and set the number of desired shard **redis_shard_count** (default 3)
 * **redis-cluster-backup** --> set **redis_cluster_enabled = "1"** and **redis_backup_enabled = "1"** , add in the configuration block **"rdb_backup_frequency"** **"rdb_backup_max_snapshot_count"** and set desired shard **redis_shard_count** (default 3)
 
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | account_replication_type | Type of storage replication : LRS,GRS,RAGRS,ZRS https://docs.microsoft.com/fr-fr/azure/storage/common/storage-redundancy | string | `GRS` | no |
 | account_tier | Storage account for backup policy | string | `Standard` | no |
-| admin_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> admin_cidrs | list | - | yes |
+| authorized_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs | list | - | yes |
 | azure_region | Azure region in which instance will be hosted | string | - | yes |
 | azure_region_short | Azure region trigram | string | - | yes |
 | client_name | Name of client | string | - | yes |
-| custom_tags | Map of custom tags | map | - | yes |
+| custom_tags | Map of custom tags | map | `<map>` | no |
 | datadog_integration | Enable datadog tags --> true/false | string | - | yes |
 | environment | Name of application's environnement | string | - | yes |
 | redis_backup_enabled | Enable backup feature --> 0 (disabled) 1 (enabled) | string | `0` | no |

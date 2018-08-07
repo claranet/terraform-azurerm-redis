@@ -3,9 +3,11 @@ resource "azurerm_redis_cache" "redis" {
   name                = "redis-${var.environment}-${var.azure_region_short}-${var.client_name}-${var.stack}-${var.redis_name}"
   location            = "${var.azure_region}"
   resource_group_name = "${var.resource_group_name}"
-  capacity            = "${var.redis_capacity}"
-  family              = "${signum(var.redis_cluster_enabled + var.redis_backup_enabled) == "1" ? "P" : var.redis_family }"
-  sku_name            = "${signum(var.redis_cluster_enabled + var.redis_backup_enabled) == "1" ? "Premium" : var.redis_sku_name }"
+
+  capacity = "${var.redis_capacity}"
+  family   = "${signum(var.redis_cluster_enabled + var.redis_backup_enabled) == "1" ? "P" : var.redis_family }"
+  sku_name = "${signum(var.redis_cluster_enabled + var.redis_backup_enabled) == "1" ? "Premium" : var.redis_sku_name }"
+
   enable_non_ssl_port = "${var.redis_enable_ssl}"
   shard_count         = "${var.redis_cluster_enabled == "1" ? var.redis_shard_count : "0" }"
   tags                = "${merge(zipmap(list("dd_monitoring","dd_azure_redis"),split(" ",var.datadog_integration == "true" ? "enabled enabled" : "disabled disabled")), map("env", var.environment, "stack", var.stack), var.custom_tags)}"
@@ -28,10 +30,11 @@ resource "azurerm_redis_cache" "redis" {
 #  }
 
 resource "azurerm_storage_account" "redis_storage" {
-  count                    = "${var.redis_backup_enabled}"
-  name                     = "st${var.environment}${var.client_name}${var.stack}"
-  resource_group_name      = "${var.resource_group_name}"
-  location                 = "${var.azure_region}"
+  count               = "${var.redis_backup_enabled}"
+  name                = "st${var.environment}${var.client_name}${var.stack}"
+  resource_group_name = "${var.resource_group_name}"
+  location            = "${var.azure_region}"
+
   account_tier             = "${var.account_tier}"
   account_replication_type = "${var.account_replication_type}"
 }

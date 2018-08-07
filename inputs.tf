@@ -76,13 +76,14 @@ variable "redis_configuration" {
   }
 }
 
-variable "admin_cidrs" {
+variable "authorized_cidrs" {
   type        = "list"
-  description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> admin_cidrs"
+  description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs"
 }
 
 variable "custom_tags" {
   type        = "map"
+  default     = {}
   description = "Map of custom tags"
 }
 
