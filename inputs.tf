@@ -10,7 +10,7 @@ variable "redis_backup_enabled" {
 
 variable "datadog_integration" {
   description = "Enable datadog tags --> true/false"
-  default = "false"
+  default     = "false"
 }
 
 variable "redis_name" {
