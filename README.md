@@ -13,30 +13,30 @@ Terraform module declaration example:
 ```
 module "redis" {
   source = "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git?ref=XXXXX"
-  client_name         = "${var.client_name}"
-  azure_region        = "${module.az-region.location}"
-  azure_region_short  = "${module.az-region.location-short}"
-  environment         = "${var.environment}"
-  stack               = "${var.stack}"
-  resource_group_name = "${module.infra.resource_group_name}"
-  authorized_cidrs    = "${var.authorized_cidrs}"
+  client_name                  = "${var.client_name}"
+  azure_region                 = "${module.az-region.location}"
+  azure_region_short           = "${module.az-region.location-short}"
+  environment                  = "${var.environment}"
+  stack                        = "${var.stack}"
+  resource_group_name          = "${module.infra.resource_group_name}"
+  redis_fw_authorized_cidrs    = "${var.authorized_cidrs}"
 
-  redis_name          = "${var.redis_name}"
-  redis_enable_ssl    = "${var.redis_enable_ssl}"
-  redis_configuration = "${var.redis_configuration}" #Example to enable backup : {rdb_backup_frequency = "60", rdb_backup_max_snapshot_count = "1"}, if omitted, redis instance will not be created
+  redis_name                   = "${var.redis_name}"
+  redis_enable_ssl             = "${var.redis_enable_ssl}"
+  redis_configuration          = "${var.redis_configuration}" #Example to enable backup : {rdb_backup_frequency = "60", rdb_backup_max_snapshot_count = "1"}, if omitted, redis instance will not be created
 
 # If you want to choose the number of shard
-# redis_shard_count   = "2"
+# redis_shard_count            = "2"
 
 # Enable cluster feature
-# cluster_enabled     = "1"
+# cluster_enabled              = "1"
 
 # Enable backup feature
-# backup_enabled      = "1"
+# backup_enabled               = "1"
 
 # Enable datadog monitoring tags
-# datadog_integration = "true"
-  custom_tags         = {dd_test_monitoring = "enabled"}
+# datadog_integration          = true
+  custom_tags                  = {dd_test_monitoring = "enabled"}
 }
 
 ```
@@ -53,9 +53,9 @@ If you need to configure a :
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| account_replication_type | Type of storage replication : LRS,GRS,RAGRS,ZRS https://docs.microsoft.com/fr-fr/azure/storage/common/storage-redundancy | string | `GRS` | no |                
-| account_tier | Storage account for backup policy | string | `Standard` | no |
-| authorized_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs | list | - | yes |              
+| storage_account_replication_type | Type of storage replication : LRS,GRS,RAGRS,ZRS https://docs.microsoft.com/fr-fr/azure/storage/common/storage-redundancy | string | `GRS` | no | 
+| storage_account_tier | Storage account for backup policy | string | `Standard` | no |
+| redis_fw_authorized_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs | list | - | yes |
 | azure_region | Azure region in which instance will be hosted | string | - | yes |
 | azure_region_short | Azure region trigram | string | - | yes |
 | client_name | Name of client | string | - | yes |

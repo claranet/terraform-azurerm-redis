@@ -10,10 +10,10 @@ resource "azurerm_redis_cache" "redis" {
 
   enable_non_ssl_port = "${var.redis_enable_ssl}"
   shard_count         = "${var.redis_cluster_enabled == "1" ? var.redis_shard_count : "0" }"
-  tags                = "${merge(zipmap(list("dd_monitoring","dd_azure_redis"),split(" ",var.datadog_integration == "true" ? "enabled enabled" : "disabled disabled")), map("env", var.environment, "stack", var.stack), var.custom_tags)}"
+  tags                = "${merge(zipmap(list("dd_monitoring","dd_azure_redis"),split(" ",var.datadog_integration == "1" ? "enabled enabled" : "disabled disabled")), map("env", var.environment, "stack", var.stack), var.custom_tags)}"
 
   #Prepare for terraform 0.12
-  #  tags                = "${merge(var.datadog_integration == "true" ? {"dd_monitoring" = "enabled","dd_azure_redis" = "enabled"} : null), map("env", var.environment, "stack", var.stack), var.custom_tags)}"
+  #  tags                = "${merge(var.datadog_integration == "1" ? {"dd_monitoring" = "enabled","dd_azure_redis" = "enabled"} : null), map("env", var.environment, "stack", var.stack), var.custom_tags)}"
 
   redis_configuration = ["${merge(var.redis_configuration,map("rdb_backup_enabled","${var.redis_backup_enabled == "1" ? "true" : "false" }", "rdb_storage_connection_string" ,"${var.redis_backup_enabled == "1" ? "DefaultEndpointsProtocol=https;BlobEndpoint=${join("",azurerm_storage_account.redis_storage.*.primary_blob_endpoint)};AccountName=${join("",azurerm_storage_account.redis_storage.*.name)};AccountKey=${join("",azurerm_storage_account.redis_storage.*.primary_access_key)}" : ""}"))}"]
 }
@@ -35,6 +35,6 @@ resource "azurerm_storage_account" "redis_storage" {
   resource_group_name = "${var.resource_group_name}"
   location            = "${var.azure_region}"
 
-  account_tier             = "${var.account_tier}"
-  account_replication_type = "${var.account_replication_type}"
+  account_tier             = "${var.storage_account_tier}"
+  account_replication_type = "${var.storage_account_replication_type}"
 }

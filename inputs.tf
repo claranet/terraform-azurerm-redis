@@ -10,7 +10,7 @@ variable "redis_backup_enabled" {
 
 variable "datadog_integration" {
   description = "Enable datadog tags --> true/false"
-  default     = "false"
+  default     = false
 }
 
 variable "redis_name" {
@@ -77,7 +77,7 @@ variable "redis_configuration" {
   }
 }
 
-variable "authorized_cidrs" {
+variable "redis_fw_authorized_cidrs" {
   type        = "list"
   description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs"
 }
@@ -88,12 +88,12 @@ variable "custom_tags" {
   description = "Map of custom tags"
 }
 
-variable "account_tier" {
+variable "storage_account_tier" {
   default     = "Standard"
   description = "Storage account for backup policy"
 }
 
-variable "account_replication_type" {
+variable "storage_account_replication_type" {
   default     = "GRS"
   description = "Type of storage replication : LRS,GRS,RAGRS,ZRS https://docs.microsoft.com/fr-fr/azure/storage/common/storage-redundancy"
 }
