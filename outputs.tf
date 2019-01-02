@@ -19,11 +19,13 @@ output "redis_port" {
 }
 
 output "redis_primary_access_key" {
+  sensitive   = true
   value       = "${azurerm_redis_cache.redis.primary_access_key}"
   description = "Redis primary access key"
 }
 
 output "redis_secondary_access_key" {
+  sensitive   = true
   value       = "${azurerm_redis_cache.redis.secondary_access_key}"
   description = "Redis secondary access key"
 }
