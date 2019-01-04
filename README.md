@@ -10,7 +10,23 @@ Set the correct tags on instance, see: `git::ssh://git@git.fr.clara.net/claranet
 ### Module declaration
 
 Terraform module declaration example:
-```
+```shell
+
+module "az-region" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
+
+  azure_region = "${var.azure_region}"
+}
+
+module "rg" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
+
+  azure_region = "${module.az-region.location}"
+  client_name  = "${var.client_name}"
+  environment  = "${var.environment}"
+  stack        = "${var.stack}"
+}
+
 module "redis" {
   source = "git::ssh://git@bitbucket.org/morea/terraform.feature.azure.redis.git?ref=XXXXX"
   client_name                  = "${var.client_name}"
@@ -18,7 +34,7 @@ module "redis" {
   azure_region_short           = "${module.az-region.location-short}"
   environment                  = "${var.environment}"
   stack                        = "${var.stack}"
-  resource_group_name          = "${module.infra.resource_group_name}"
+  resource_group_name          = "${module.rg.resource_group_name}"
   redis_fw_authorized_cidrs    = "${var.authorized_cidrs}"
 
   redis_name                   = "${var.redis_name}"
