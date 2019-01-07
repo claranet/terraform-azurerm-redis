@@ -1,7 +1,7 @@
 # Basic Redis
 resource "azurerm_redis_cache" "redis" {
-  name                = "redis-${var.environment}-${var.azure_region_short}-${var.client_name}-${var.stack}-${var.redis_name}"
-  location            = "${var.azure_region}"
+  name                = "redis-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}-${var.redis_name}"
+  location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
 
   capacity = "${var.redis_capacity}"
@@ -33,7 +33,7 @@ resource "azurerm_storage_account" "redis_storage" {
   count               = "${var.redis_backup_enabled}"
   name                = "st${var.environment}${var.client_name}${var.stack}"
   resource_group_name = "${var.resource_group_name}"
-  location            = "${var.azure_region}"
+  location            = "${var.location}"
 
   account_tier             = "${var.storage_account_tier}"
   account_replication_type = "${var.storage_account_replication_type}"

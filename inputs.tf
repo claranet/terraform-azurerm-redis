@@ -1,10 +1,10 @@
 ## GLOBAL INPUTS ##
 
-variable "azure_region" {
+variable "location" {
   description = "Azure region in which instance will be hosted"
 }
 
-variable "azure_region_short" {
+variable "location_short" {
   description = "Azure region trigram"
 }
 
