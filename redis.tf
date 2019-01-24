@@ -1,6 +1,12 @@
+locals {
+  # Storage name
+  storage_default_name_long = "${replace(format("st%s%s%s", var.environment, var.client_name, var.stack), "/[._-]/", "")}"
+  storage_default_name      = "${substr(local.storage_default_name_long, 0, length(local.storage_default_name_long) > 24 ? 23 : -1)}"
+}
+
 # Basic Redis
 resource "azurerm_redis_cache" "redis" {
-  name                = "redis-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}-${var.redis_name}"
+  name                = "${coalesce(var.server_name, "redis-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}-${var.redis_name}")}"
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
 
@@ -10,10 +16,10 @@ resource "azurerm_redis_cache" "redis" {
 
   enable_non_ssl_port = "${var.redis_enable_ssl}"
   shard_count         = "${var.redis_cluster_enabled == "1" ? var.redis_shard_count : "0" }"
-  tags                = "${merge(zipmap(list("dd_monitoring","dd_azure_redis"),split(" ",var.datadog_integration == "1" ? "enabled enabled" : "disabled disabled")), map("env", var.environment, "stack", var.stack), var.custom_tags)}"
+  tags                = "${merge(zipmap(list("dd_monitoring","dd_azure_redis"),split(" ",var.datadog_integration == "1" ? "enabled enabled" : "disabled disabled")), map("env", var.environment, "stack", var.stack), var.extra_tags)}"
 
   #Prepare for terraform 0.12
-  #  tags                = "${merge(var.datadog_integration == "1" ? {"dd_monitoring" = "enabled","dd_azure_redis" = "enabled"} : null), map("env", var.environment, "stack", var.stack), var.custom_tags)}"
+  #  tags                = "${merge(var.datadog_integration == "1" ? {"dd_monitoring" = "enabled","dd_azure_redis" = "enabled"} : null), map("env", var.environment, "stack", var.stack), var.extra_tags)}"
 
   redis_configuration = ["${merge(var.redis_configuration,map("rdb_backup_enabled","${var.redis_backup_enabled == "1" ? "true" : "false" }", "rdb_storage_connection_string" ,"${var.redis_backup_enabled == "1" ? "DefaultEndpointsProtocol=https;BlobEndpoint=${join("",azurerm_storage_account.redis_storage.*.primary_blob_endpoint)};AccountName=${join("",azurerm_storage_account.redis_storage.*.name)};AccountKey=${join("",azurerm_storage_account.redis_storage.*.primary_access_key)}" : ""}"))}"]
 }
@@ -31,7 +37,7 @@ resource "azurerm_redis_cache" "redis" {
 
 resource "azurerm_storage_account" "redis_storage" {
   count               = "${var.redis_backup_enabled}"
-  name                = "st${var.environment}${var.client_name}${var.stack}"
+  name                = "${local.storage_default_name}"
   resource_group_name = "${var.resource_group_name}"
   location            = "${var.location}"
 

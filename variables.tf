@@ -16,6 +16,11 @@ variable "stack" {
   description = "Name of application stack"
 }
 
+variable "server_name" {
+  description = "Custom name of redis server"
+  default     = ""
+}
+
 variable "client_name" {
   description = "Name of client"
 }
@@ -29,16 +34,17 @@ variable "datadog_integration" {
   default     = false
 }
 
-variable "custom_tags" {
+variable "extra_tags" {
   type        = "map"
   default     = {}
-  description = "Map of custom tags"
+  description = "Map of extra tags"
 }
 
 ## REDIS PARAMETERS ##
 
 variable "redis_name" {
   description = "Redis instance name"
+  default     = "test"
 }
 
 variable "redis_capacity" {
