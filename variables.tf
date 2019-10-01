@@ -1,111 +1,130 @@
-## GLOBAL INPUTS ##
-
 variable "location" {
   description = "Azure region in which instance will be hosted"
+  type        = string
 }
 
 variable "location_short" {
   description = "Azure region trigram"
+  type        = string
 }
 
 variable "environment" {
-  description = "Name of application's environnement"
+  description = "Name of the application's environnement"
+  type        = string
 }
 
 variable "stack" {
-  description = "Name of application stack"
-}
-
-variable "server_name" {
-  description = "Custom name of redis server"
-  default     = ""
+  description = "Name of the application stack"
+  type        = string
 }
 
 variable "client_name" {
-  description = "Name of client"
+  description = "Name of the client"
+  type        = string
 }
 
 variable "resource_group_name" {
   description = "Name of the application ressource group, herited from infra module"
+  type        = string
 }
 
-variable "datadog_integration" {
-  description = "Enable datadog tags --> true/false"
-  default     = false
+variable "custom_name" {
+  description = "Custom name of redis server"
+  type        = string
+  default     = ""
+}
+
+variable "name_prefix" {
+  description = "Optional prefix for the generated name"
+  type        = string
+  default     = ""
 }
 
 variable "extra_tags" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "Map of extra tags"
 }
 
-## REDIS PARAMETERS ##
-
-variable "redis_name" {
-  description = "Redis instance name"
-  default     = "test"
-}
-
-variable "redis_capacity" {
+variable "capacity" {
   default     = 2
   description = "Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering"
+  type        = number
 }
 
-variable "redis_family" {
-  default     = "C"
-  description = "Sku family C=Basic/Standard, P=Premium "
+variable "sku_name" {
+  default     = "Premium"
+  description = "Redis Cache Sku name. Can be Basic, Standard or Premium"
+  type        = string
 }
 
-variable "redis_sku_name" {
-  default     = "Standard"
-  description = "Sku name: Basic, Standard, Premium"
-}
-
-variable "redis_shard_count" {
+variable "cluster_shard_count" {
   default     = "3"
-  description = "Number of shard wanted in case of cluster setup"
+  description = "Number of cluster shards desired"
+  type        = string
 }
 
-variable "redis_configuration" {
-  type        = "map"
-  description = "Set of redis configuration, accepted parameters: maxmemory_reserved (default: 10), maxmemory_delta (default: 2), maxmemory_policy (default: allkeys-lru), backup_frequency, snapshot_count"
-
-  default = {
-    maxmemory_reserved = 10
-    maxmemory_delta    = 2
-    maxmemory_policy   = "allkeys-lru"
-  }
+variable "redis_additional_configuration" {
+  type        = map(string)
+  description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for fulle referece"
+  default     = {}
 }
 
-variable "redis_fw_authorized_cidrs" {
-  type        = "list"
+variable "authorized_cidrs" {
+  type        = list(string)
   description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs"
 }
 
-variable "storage_account_tier" {
-  default     = "Standard"
-  description = "Storage account for backup policy"
-}
-
-variable "storage_account_replication_type" {
-  default     = "GRS"
-  description = "Type of storage replication : LRS,GRS,RAGRS,ZRS https://docs.microsoft.com/fr-fr/azure/storage/common/storage-redundancy"
-}
-
-## OPTIONAL REDIS PARAMETERS ##
-
-variable "redis_cluster_enabled" {
-  description = "Enable cluster feature --> 0 (disabled) 1 (enabled)"
-  default     = 0
-}
-
-variable "redis_backup_enabled" {
-  description = "Enable backup feature --> 0 (disabled) 1 (enabled)"
-  default     = 0
-}
-
-variable "redis_enable_ssl" {
+variable "allow_non_ssl_connections" {
   default     = "false"
-  description = "Activate Ssl port (6789) of Redis instance"
+  description = "Activate non SSL port (6779) for Redis connection"
+  type        = bool
+}
+
+variable "private_static_ip_address" {
+  description = "The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created."
+  type        = string
+  default     = null
+}
+
+variable "subnet_id" {
+  description = "The ID of the Subnet within which the Redis Cache should be deployed. Changing this forces a new resource to be created."
+  type        = string
+  default     = null
+}
+
+variable "data_persistence_enabled" {
+  description = "\"true\" to enable data persistence."
+  type        = string
+  default     = "true"
+}
+
+variable "data_persistence_frequency_in_minutes" {
+  description = "Data persistence snapshot frequency in minutes."
+  type        = number
+  default     = 60
+}
+
+variable "data_persistence_max_snapshot_count" {
+  description = "Max number of data persistence snapshots."
+  type        = string
+  default     = null
+}
+
+variable "data_persistence_storage_custom_name" {
+  description = "Custom name for the Storage Account used for Redis data persistence."
+  type        = string
+  default     = ""
+}
+
+variable "data_persistence_storage_account_tier" {
+  description = "Replication type for the Storage Account used for data persistence."
+  type        = string
+  default     = "Premium"
+}
+
+variable "data_persistence_storage_account_replication" {
+  description = "Replication type for the Storage Account used for data persistence."
+  type        = string
+  default     = "LRS"
 }

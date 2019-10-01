@@ -1,103 +1,106 @@
-### Prerequisites
+# Azure Redis Cache
+[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/redis/azurerm/)
 
-* module.infra.resource_group_name: `git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=v0.1.0`
-* module.az-region.location|location-short: `git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=v1.0.0`
+This Terraform modules creates a [Redis Cache](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview) instance along with 
+[firewall rules](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-configure#firewall).
+No logging is available from this resource.
 
-### Optionnal
-if `datadog_integration = true` 
-Set the correct tags on instance, see: `git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/datadog/terraform/monitors//cloud/azure/redis`
+The default configuration is an highly available [cluster of 3 shards](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-how-to-premium-clustering)
+and [data persistence enabled](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-how-to-premium-persistence) 
+on the [Premium tier](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-premium-tier-intro).
 
-### Module declaration
+## Requirements
+ 
+* [AzureRM Terraform provider](https://www.terraform.io/docs/providers/azurerm/) >= 1.28
 
-Terraform module declaration example:
-```shell
+## Terraform version compatibility
+ 
+| Module version | Terraform version |
+|----------------|-------------------|
+| >= 2.x.x       | 0.12.x            |
+| < 2.x.x        | 0.11.x            |
 
-module "az-region" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
+## Usage
 
-  azure_region = "${var.azure_region}"
+This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool
+which set some terraform variables in the environment needed by this module.
+More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
+
+You can use this module by including it this way:
+```hcl
+module "azure-region" {
+  source  = "claranet/regions/azurerm"
+  version = "x.x.x"
+ 
+  azure_region = var.azure_region
 }
-
+ 
 module "rg" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
-
-  location     = "${module.az-region.location}"
-  client_name  = "${var.client_name}"
-  environment  = "${var.environment}"
-  stack        = "${var.stack}"
+  source  = "claranet/rg/azurerm"
+  version = "x.x.x"
+ 
+  azure_region = module.az-region.location
+  client_name  = var.client_name
+  environment  = var.environment
+  stack        = var.stack
 }
-
+ 
 module "redis" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/redis?ref=XXXXX"
-  client_name                  = "${var.client_name}"
-  location                     = "${module.az-region.location}"
-  location_short               = "${module.az-region.location-short}"
-  environment                  = "${var.environment}"
-  stack                        = "${var.stack}"
-  resource_group_name          = "${module.rg.resource_group_name}"
-  redis_fw_authorized_cidrs    = "${var.authorized_cidrs}"
+  source  = "claranet/redis/azurerm"
+  version = "x.x.x"
+ 
+  client_name         = var.client_name
+  environment         = var.environment
+  location            = module.azure-region.location
+  location_short      = module.azure-region.location_short
+  resource_group_name = module.rg.resource_group_name
+  stack               = var.stack
 
-  redis_name                   = "${var.redis_name}"
-  redis_enable_ssl             = "${var.redis_enable_ssl}"
-  redis_configuration          = "${var.redis_configuration}" #Example to enable backup : {rdb_backup_frequency = "60", rdb_backup_max_snapshot_count = "1"}, if omitted, redis instance will not be created
-
-#If you want to choose the number of shard
- #redis_shard_count            = "2"
-
-#Enable cluster feature
- #cluster_enabled              = "1"
-
-#Enable backup feature
- #backup_enabled               = "1"
-
-#Enable datadog monitoring tags
- #datadog_integration          = true
-  extra_tags                  = {dd_test_monitoring = "enabled"}
+  authorized_cidrs = ["1.2.3.4/32", "5.6.7.8/16"]
 }
-
 ```
-
-### Module profile
-
-If you need to configure a :
-
-* `redis-backup`         : set `redis_backup_enabled = "1"` and add in the configuration block `"rdb_backup_frequency"` `"rdb_backup_max_snapshot_count"`
-* `redis-cluster`        : set `redis_cluster_enabled = "1"` and set the number of desired shard `redis_shard_count` (default 3)
-* `redis-cluster-backup` : set `redis_cluster_enabled = "1"` and `redis_backup_enabled = "1"` , add in the configuration block `"rdb_backup_frequency"` `"rdb_backup_max_snapshot_count"` and set desired shard `redis_shard_count` (default 3)
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| client_name | Name of client | string | - | yes |
-| datadog_integration | Enable datadog tags --> true/false | string | `false` | no |
-| environment | Name of application's environnement | string | - | yes |
-| extra_tags | Map of extra tags | map | `<map>` | no |
-| location | Azure region in which instance will be hosted | string | - | yes |
-| location_short | Azure region trigram | string | - | yes |
-| redis_backup_enabled | Enable backup feature --> 0 (disabled) 1 (enabled) | string | `0` | no |                                                                                            
-| redis_capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | string | `2` | no |    
-| redis_cluster_enabled | Enable cluster feature --> 0 (disabled) 1 (enabled) | string | `0` | no |                                                                                          
-| redis_configuration | Set of redis configuration, accepted parameters: maxmemory_reserved (default: 10), maxmemory_delta (default: 2), maxmemory_policy (default: allkeys-lru), backup_frequency, snapshot_count | map | `<map>` | no |
-| redis_enable_ssl | Activate Ssl port (6789) of Redis instance | string | `false` | no |
-| redis_family | Sku family C=Basic/Standard, P=Premium | string | `C` | no |
-| redis_fw_authorized_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs | list | - | yes |     
-| redis_name | Redis instance name | string | `test` | no |
-| redis_shard_count | Number of shard wanted in case of cluster setup | string | `3` | no |
-| redis_sku_name | Sku name: Basic, Standard, Premium | string | `Standard` | no |
-| resource_group_name | Name of the application ressource group, herited from infra module | string | - | yes |                                                                              
-| server_name | Custom name of redis server | string | `` | no |
-| stack | Name of application stack | string | - | yes |
-| storage_account_replication_type | Type of storage replication : LRS,GRS,RAGRS,ZRS https://docs.microsoft.com/fr-fr/azure/storage/common/storage-redundancy | string | `GRS` | no |        
-| storage_account_tier | Storage account for backup policy | string | `Standard` | no |
+| allow\_non\_ssl\_connections | Activate non SSL port (6779) for Redis connection | bool | `"false"` | no |
+| authorized\_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs | list(string) | n/a | yes |
+| capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | number | `"2"` | no |
+| client\_name | Name of the client | string | n/a | yes |
+| cluster\_shard\_count | Number of cluster shards desired | number | `"3"` | no |
+| custom\_name | Custom name of redis server | string | `""` | no |
+| data\_persistence\_enabled | "true" to enable data persistence. | string | `"true"` | no |
+| data\_persistence\_frequency\_in\_minutes | Data persistence snapshot frequency in minutes | number | `"60"` | no |
+| data\_persistence\_max\_snapshot\_count | Max number of data persistence snapshots | number | `"24"` | no |
+| data\_persistence\_storage\_account\_replication | Replication type for the Storage Account used for data persistence. | string | `"LRS"` | no |
+| data\_persistence\_storage\_account\_tier | Replication type for the Storage Account used for data persistence. | string | `"Premium"` | no |
+| data\_persistence\_storage\_custom\_name | Custom name for the Storage Account used for Redis data persistence | string | `""` | no |
+| environment | Name of the application's environnement | string | n/a | yes |
+| extra\_tags | Map of extra tags | map(string) | `<map>` | no |
+| location | Azure region in which instance will be hosted | string | n/a | yes |
+| location\_short | Azure region trigram | string | n/a | yes |
+| name\_prefix | Optional prefix for the generated name | string | `""` | no |
+| private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | string | `"null"` | no |
+| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for fulle referece | map(string) | `<map>` | no |
+| resource\_group\_name | Name of the application ressource group, herited from infra module | string | n/a | yes |
+| sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | string | `"Premium"` | no |
+| stack | Name of the application stack | string | n/a | yes |
+| subnet\_id | The ID of the Subnet within which the Redis Cache should be deployed. Changing this forces a new resource to be created. | string | `"null"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| redis_hostname | Redis instance hostname |
-| redis_id | Redis instance id |
-| redis_port | Redis instance port |
-| redis_primary_access_key | Redis primary access key |
-| redis_secondary_access_key | Redis secondary access key |
-| redis_ssl_port | Redis instance SSL port |
+| redis\_hostname | Redis instance hostname |
+| redis\_id | Redis instance id |
+| redis\_port | Redis instance port |
+| redis\_primary\_access\_key | Redis primary access key |
+| redis\_secondary\_access\_key | Redis secondary access key |
+| redis\_ssl\_port | Redis instance SSL port |
+
+## Related documentation
+ 
+Terraform resource documentation: [www.terraform.io/docs/providers/azurerm/r/redis_cache.html](https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html)
+ 
+Microsoft Azure service documentation: [docs.microsoft.com/en-us/azure/azure-cache-for-redis/](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/)
