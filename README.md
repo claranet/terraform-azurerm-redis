@@ -1,7 +1,7 @@
 # Azure Redis Cache
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/redis/azurerm/)
 
-This Terraform modules creates a [Redis Cache](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview) instance along with 
+This Terraform module creates a [Redis Cache](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-overview) instance along with 
 [firewall rules](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-configure#firewall).
 No logging is available from this resource.
 
@@ -39,7 +39,7 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
  
-  azure_region = module.az-region.location
+  azure_region = module.azure-region.location
   client_name  = var.client_name
   environment  = var.environment
   stack        = var.stack
