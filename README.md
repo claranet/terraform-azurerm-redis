@@ -63,40 +63,46 @@ module "redis" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| allow\_non\_ssl\_connections | Activate non SSL port (6779) for Redis connection | bool | `"false"` | no |
-| authorized\_cidrs | List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs | list(string) | n/a | yes |
-| capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | number | `"2"` | no |
-| client\_name | Name of the client | string | n/a | yes |
-| cluster\_shard\_count | Number of cluster shards desired | number | `"3"` | no |
-| custom\_name | Custom name of redis server | string | `""` | no |
-| data\_persistence\_enabled | "true" to enable data persistence. | string | `"true"` | no |
-| data\_persistence\_frequency\_in\_minutes | Data persistence snapshot frequency in minutes | number | `"60"` | no |
-| data\_persistence\_max\_snapshot\_count | Max number of data persistence snapshots | number | `"24"` | no |
-| data\_persistence\_storage\_account\_replication | Replication type for the Storage Account used for data persistence. | string | `"LRS"` | no |
-| data\_persistence\_storage\_account\_tier | Replication type for the Storage Account used for data persistence. | string | `"Premium"` | no |
-| data\_persistence\_storage\_custom\_name | Custom name for the Storage Account used for Redis data persistence | string | `""` | no |
-| environment | Name of the application's environnement | string | n/a | yes |
-| extra\_tags | Map of extra tags | map(string) | `<map>` | no |
-| location | Azure region in which instance will be hosted | string | n/a | yes |
-| location\_short | Azure region trigram | string | n/a | yes |
-| name\_prefix | Optional prefix for the generated name | string | `""` | no |
-| private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | string | `"null"` | no |
-| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for fulle referece | map(string) | `<map>` | no |
-| resource\_group\_name | Name of the application ressource group, herited from infra module | string | n/a | yes |
-| sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | string | `"Premium"` | no |
-| stack | Name of the application stack | string | n/a | yes |
-| subnet\_id | The ID of the Subnet within which the Redis Cache should be deployed. Changing this forces a new resource to be created. | string | `"null"` | no |
+|------|-------------|------|---------|:-----:|
+| allow\_non\_ssl\_connections | Activate non SSL port (6779) for Redis connection | `bool` | `false` | no |
+| authorized\_cidrs | List of authorized cidrs | `list(string)` | n/a | yes |
+| capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | `number` | `2` | no |
+| client\_name | Name of the client | `string` | n/a | yes |
+| cluster\_shard\_count | Number of cluster shards desired | `number` | `3` | no |
+| custom\_name | Custom name of redis server | `string` | `""` | no |
+| data\_persistence\_enabled | "true" to enable data persistence. | `bool` | `true` | no |
+| data\_persistence\_frequency\_in\_minutes | Data persistence snapshot frequency in minutes. | `number` | `60` | no |
+| data\_persistence\_max\_snapshot\_count | Max number of data persistence snapshots. | `string` | n/a | yes |
+| data\_persistence\_storage\_account\_replication | Replication type for the Storage Account used for data persistence. | `string` | `"LRS"` | no |
+| data\_persistence\_storage\_account\_tier | Replication type for the Storage Account used for data persistence. | `string` | `"Premium"` | no |
+| data\_persistence\_storage\_custom\_name | Custom name for the Storage Account used for Redis data persistence. | `string` | `""` | no |
+| environment | Name of the application's environnement | `string` | n/a | yes |
+| extra\_tags | Map of extra tags | `map(string)` | `{}` | no |
+| location | Azure region in which instance will be hosted | `string` | n/a | yes |
+| location\_short | Azure region trigram | `string` | n/a | yes |
+| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
+| private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | n/a | yes |
+| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for fulle referece | `map(string)` | `{}` | no |
+| resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
+| sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | `string` | `"Premium"` | no |
+| stack | Name of the application stack | `string` | n/a | yes |
+| subnet\_id | The ID of the Subnet within which the Redis Cache should be deployed. Changing this forces a new resource to be created. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| redis\_capacity | Redis capacity |
+| redis\_configuration | Redis configuration |
+| redis\_family | Redis family |
 | redis\_hostname | Redis instance hostname |
 | redis\_id | Redis instance id |
+| redis\_name | Redis instance name |
 | redis\_port | Redis instance port |
 | redis\_primary\_access\_key | Redis primary access key |
+| redis\_private\_static\_ip\_address | Redis private static IP address |
 | redis\_secondary\_access\_key | Redis secondary access key |
+| redis\_sku\_name | Redis SKU name |
 | redis\_ssl\_port | Redis instance SSL port |
 
 ## Related documentation
