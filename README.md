@@ -9,11 +9,7 @@ The default configuration is an highly available [cluster of 3 shards](https://d
 and [data persistence enabled](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-how-to-premium-persistence) 
 on the [Premium tier](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-premium-tier-intro).
 
-## Requirements
- 
-* [AzureRM Terraform provider](https://www.terraform.io/docs/providers/azurerm/) >= 1.28
-
-## Terraform version compatibility
+## Version compatibility
  
 | Module version    | Terraform version | AzureRM version |
 |-------------------|-------------------|-----------------|

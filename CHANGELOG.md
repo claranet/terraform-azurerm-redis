@@ -1,4 +1,4 @@
-# Unreleased
+# v2.1.0 - Unreleased
 
 Added
   * AZ-212: Additional outputs
