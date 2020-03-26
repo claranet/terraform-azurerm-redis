@@ -41,44 +41,44 @@ variable "name_prefix" {
 }
 
 variable "extra_tags" {
+  description = "Map of extra tags"
   type        = map(string)
   default     = {}
-  description = "Map of extra tags"
 }
 
 variable "capacity" {
-  default     = 2
   description = "Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering"
   type        = number
+  default     = 2
 }
 
 variable "sku_name" {
-  default     = "Premium"
   description = "Redis Cache Sku name. Can be Basic, Standard or Premium"
   type        = string
+  default     = "Premium"
 }
 
 variable "cluster_shard_count" {
-  default     = "3"
   description = "Number of cluster shards desired"
-  type        = string
+  type        = number
+  default     = 3
 }
 
 variable "redis_additional_configuration" {
-  type        = map(string)
   description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for fulle referece"
+  type        = map(string)
   default     = {}
 }
 
 variable "authorized_cidrs" {
+  description = "List of authorized cidrs"
   type        = list(string)
-  description = "List of authorized cidrs, must be provided using remote states cloudpublic/cloudpublic/global/vars/terraform.state --> authorized_cidrs"
 }
 
 variable "allow_non_ssl_connections" {
-  default     = "false"
   description = "Activate non SSL port (6779) for Redis connection"
   type        = bool
+  default     = false
 }
 
 variable "private_static_ip_address" {
@@ -95,8 +95,8 @@ variable "subnet_id" {
 
 variable "data_persistence_enabled" {
   description = "\"true\" to enable data persistence."
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "data_persistence_frequency_in_minutes" {
