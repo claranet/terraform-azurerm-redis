@@ -81,6 +81,12 @@ variable "allow_non_ssl_connections" {
   default     = false
 }
 
+variable "minimum_tls_version" {
+  description = "The minimum TLS version"
+  type        = string
+  default     = "1.0"
+}
+
 variable "private_static_ip_address" {
   description = "The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created."
   type        = string

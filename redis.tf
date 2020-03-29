@@ -7,6 +7,7 @@ resource "azurerm_redis_cache" "redis" {
   sku_name = var.sku_name
 
   enable_non_ssl_port = var.allow_non_ssl_connections
+  minimum_tls_version = var.minimum_tls_version
   shard_count         = var.sku_name == "Premium" ? var.cluster_shard_count : 0
   capacity            = var.capacity
 

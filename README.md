@@ -77,9 +77,10 @@ module "redis" {
 | extra\_tags | Map of extra tags | `map(string)` | `{}` | no |
 | location | Azure region in which instance will be hosted | `string` | n/a | yes |
 | location\_short | Azure region trigram | `string` | n/a | yes |
+| minimum\_tls\_version | The minimum TLS version | `string` | `"1.0"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | n/a | yes |
-| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for fulle referece | `map(string)` | `{}` | no |
+| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for fulle referece | `map(string)` | `{}` | no |    
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
 | sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | `string` | `"Premium"` | no |
 | stack | Name of the application stack | `string` | n/a | yes |
