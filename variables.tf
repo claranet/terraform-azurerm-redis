@@ -71,8 +71,8 @@ variable "redis_additional_configuration" {
 }
 
 variable "authorized_cidrs" {
-  description = "List of authorized cidrs"
-  type        = list(string)
+  description = "Map of authorized cidrs"
+  type        = map(string)
 }
 
 variable "allow_non_ssl_connections" {

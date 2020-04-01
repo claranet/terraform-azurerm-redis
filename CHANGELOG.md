@@ -5,6 +5,7 @@ Fixed
 
 Added
   * AZ-217: Add parameter to modify TLS version
+  * AZ-220: Use for_each on firewall rules
 
 # v2.1.0 - 2020-03-26
 
