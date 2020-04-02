@@ -53,7 +53,10 @@ module "redis" {
   resource_group_name = module.rg.resource_group_name
   stack               = var.stack
 
-  authorized_cidrs = ["1.2.3.4/32", "5.6.7.8/16"]
+  authorized_cidrs = {
+    ip1 = "1.2.3.4/32"
+    ip2 = "5.6.7.8/16"
+  }
 }
 ```
 
