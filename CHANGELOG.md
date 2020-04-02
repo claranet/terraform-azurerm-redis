@@ -1,11 +1,13 @@
 # v2.2.0 - Unreleased
 
+Breaking
+  * AZ-220: Use `for_each` on firewall rules
+
 Fixed
   * AZ-219: Ignore perpetual change on storage connection string
 
 Added
   * AZ-217: Add parameter to modify TLS version
-  * AZ-220: Use for_each on firewall rules
 
 # v2.1.0 - 2020-03-26
 
