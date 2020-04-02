@@ -65,7 +65,7 @@ variable "cluster_shard_count" {
 }
 
 variable "redis_additional_configuration" {
-  description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for fulle referece"
+  description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference."
   type        = map(string)
   default     = {}
 }
