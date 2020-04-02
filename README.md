@@ -79,7 +79,12 @@ module "redis" {
 | location\_short | Azure region trigram | `string` | n/a | yes |
 | minimum\_tls\_version | The minimum TLS version | `string` | `"1.0"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
+<<<<<<< HEAD
 | private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | `null` | no |
+=======
+| private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | `null` 
+| no |
+>>>>>>> 87d7f37... AZ-220 Fix README rebase
 | redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference. | `map(string)` | `{}` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
 | sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | `string` | `"Premium"` | no |
