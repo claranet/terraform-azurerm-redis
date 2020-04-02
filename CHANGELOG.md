@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-219: Ignore perpetual change on storage connection string
+
 # v2.1.0 - 2020-03-26
 
 Added

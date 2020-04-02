@@ -27,6 +27,10 @@ resource "azurerm_redis_cache" "redis" {
     rdb_backup_max_snapshot_count   = lookup(local.redis_config, "rdb_backup_max_snapshot_count", null)
     rdb_storage_connection_string   = lookup(local.redis_config, "rdb_storage_connection_string", null)
   }
+
+  lifecycle {
+    ignore_changes = [redis_configuration[0].rdb_storage_connection_string]
+  }
 }
 
 resource "azurerm_storage_account" "redis_storage" {
