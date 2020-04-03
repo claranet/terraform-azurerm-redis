@@ -66,7 +66,8 @@ module "redis" {
 | capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | `number` | `2` | no |
 | client\_name | Name of the client | `string` | n/a | yes |
 | cluster\_shard\_count | Number of cluster shards desired | `number` | `3` | no |
-| custom\_name | Custom name of redis server | `string` | `""` | no || data\_persistence\_enabled | "true" to enable data persistence. | `bool` | `true` | no |
+| custom\_name | Custom name of redis server | `string` | `""` | no |
+| data\_persistence\_enabled | "true" to enable data persistence. | `bool` | `true` | no |
 | data\_persistence\_frequency\_in\_minutes | Data persistence snapshot frequency in minutes. | `number` | `60` | no |
 | data\_persistence\_max\_snapshot\_count | Max number of data persistence snapshots. | `string` | `null` | no |
 | data\_persistence\_storage\_account\_replication | Replication type for the Storage Account used for data persistence. | `string` | `"LRS"` | no |
@@ -78,9 +79,8 @@ module "redis" {
 | location\_short | Azure region trigram | `string` | n/a | yes |
 | minimum\_tls\_version | The minimum TLS version | `string` | `"1.0"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
-| private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | `null` 
-| no |
-| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference. | `map(string)` | `{}` | no |
+| private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | `null` | no |
+| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference. | `map(string)` | `{}` | no |   
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
 | sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | `string` | `"Premium"` | no |
 | stack | Name of the application stack | `string` | n/a | yes |
