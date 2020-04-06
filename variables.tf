@@ -113,7 +113,7 @@ variable "data_persistence_frequency_in_minutes" {
 
 variable "data_persistence_max_snapshot_count" {
   description = "Max number of data persistence snapshots."
-  type        = string
+  type        = number
   default     = null
 }
 
