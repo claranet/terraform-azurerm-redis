@@ -53,7 +53,10 @@ module "redis" {
   resource_group_name = module.rg.resource_group_name
   stack               = var.stack
 
-  authorized_cidrs = ["1.2.3.4/32", "5.6.7.8/16"]
+  authorized_cidrs = {
+    ip1 = "1.2.3.4/32"
+    ip2 = "5.6.7.8/16"
+  }
 }
 ```
 
@@ -62,7 +65,7 @@ module "redis" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | allow\_non\_ssl\_connections | Activate non SSL port (6779) for Redis connection | `bool` | `false` | no |
-| authorized\_cidrs | List of authorized cidrs | `list(string)` | n/a | yes |
+| authorized\_cidrs | Map of authorized cidrs | `map(string)` | n/a | yes |
 | capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | `number` | `2` | no |
 | client\_name | Name of the client | `string` | n/a | yes |
 | cluster\_shard\_count | Number of cluster shards desired | `number` | `3` | no |

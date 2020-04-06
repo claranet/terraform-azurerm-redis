@@ -1,5 +1,8 @@
 # v2.2.0 - Unreleased
 
+Breaking
+  * AZ-220: Use `for_each` on firewall rules
+
 Fixed
   * AZ-219: Ignore perpetual change on storage connection string
 
