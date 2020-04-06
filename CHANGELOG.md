@@ -1,4 +1,4 @@
-# v2.2.0 - Unreleased
+# v2.2.0 - 2020-04-06
 
 Breaking
   * AZ-220: Use `for_each` on firewall rules
