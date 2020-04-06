@@ -65,7 +65,7 @@ variable "cluster_shard_count" {
 }
 
 variable "redis_additional_configuration" {
-  description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for fulle referece"
+  description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference."
   type        = map(string)
   default     = {}
 }
@@ -79,6 +79,12 @@ variable "allow_non_ssl_connections" {
   description = "Activate non SSL port (6779) for Redis connection"
   type        = bool
   default     = false
+}
+
+variable "minimum_tls_version" {
+  description = "The minimum TLS version"
+  type        = string
+  default     = "1.0"
 }
 
 variable "private_static_ip_address" {
@@ -107,7 +113,7 @@ variable "data_persistence_frequency_in_minutes" {
 
 variable "data_persistence_max_snapshot_count" {
   description = "Max number of data persistence snapshots."
-  type        = string
+  type        = number
   default     = null
 }
 

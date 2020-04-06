@@ -1,7 +1,10 @@
-# Unreleased
+# v2.2.0 - Unreleased
 
 Fixed
   * AZ-219: Ignore perpetual change on storage connection string
+
+Added
+  * AZ-217: Add parameter to modify TLS version
 
 # v2.1.0 - 2020-03-26
 
