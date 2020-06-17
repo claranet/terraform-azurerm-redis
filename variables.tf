@@ -84,7 +84,7 @@ variable "allow_non_ssl_connections" {
 variable "minimum_tls_version" {
   description = "The minimum TLS version"
   type        = string
-  default     = "1.0"
+  default     = "1.2"
 }
 
 variable "private_static_ip_address" {
