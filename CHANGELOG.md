@@ -1,3 +1,8 @@
+# v2.3.0 - 2020-06-28
+
+Updated
+  * [GITHUB-1](https://github.com/claranet/terraform-azurerm-redis/pull/1): Update default tls version to `1.2`
+
 # v2.2.0 - 2020-04-06
 
 Breaking
