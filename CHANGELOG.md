@@ -1,3 +1,8 @@
+# v2.3.1/v3.0.0 - 2020-07-31
+
+Updated
+  * AZ-224: Module both compatible provider 1.x+ and 2.x+
+
 # v2.3.0 - 2020-06-28
 
 Updated
