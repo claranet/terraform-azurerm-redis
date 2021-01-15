@@ -4,12 +4,14 @@ locals {
     "stack" = var.stack
   }
 
-  name_prefix = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""
-  name        = coalesce(var.custom_name, "${local.name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-redis")
+  name_prefix  = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""
+  default_name = lower("${local.name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}")
+
+  name = coalesce(var.custom_name, "${local.default_name}-redis")
 
   storage_name = coalesce(
     var.data_persistence_storage_custom_name,
-    substr(replace("redis${local.name_prefix}${var.stack}${var.client_name}${var.location_short}${var.environment}st", "/[._-]/", ""), 0, 24)
+    substr(replace("redis${local.default_name}st", "/[._-]/", ""), 0, 24)
   )
 
   redis_family_map = {
