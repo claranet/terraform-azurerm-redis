@@ -14,6 +14,8 @@ resource "azurerm_redis_cache" "redis" {
   private_static_ip_address = var.private_static_ip_address
   subnet_id                 = var.subnet_id
 
+  redis_version = var.redis_version
+
   tags = merge(local.default_tags, var.extra_tags)
 
   redis_configuration {
