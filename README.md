@@ -110,6 +110,7 @@ No modules.
 | sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | `string` | `"Premium"` | no |
 | stack | Name of the application stack | `string` | n/a | yes |
 | subnet\_id | The ID of the Subnet within which the Redis Cache should be deployed. Changing this forces a new resource to be created. | `string` | `null` | no |
+| zones | A list of a one or more Availability Zones, where the Redis Cache should be allocated. | `list(number)` | `null` | no |
 
 ## Outputs
 

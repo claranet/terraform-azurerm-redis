@@ -140,3 +140,9 @@ variable "redis_version" {
   type        = number
   default     = 4
 }
+
+variable "zones" {
+  description = "A list of a one or more Availability Zones, where the Redis Cache should be allocated."
+  default     = null
+  type        = list(number)
+}

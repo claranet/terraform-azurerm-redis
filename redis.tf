@@ -15,6 +15,7 @@ resource "azurerm_redis_cache" "redis" {
   subnet_id                 = var.subnet_id
 
   redis_version = var.redis_version
+  zones         = var.zones
 
   tags = merge(local.default_tags, var.extra_tags)
 
