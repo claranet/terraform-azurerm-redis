@@ -137,6 +137,6 @@ variable "data_persistence_storage_account_replication" {
 
 variable "redis_version" {
   description = "Redis version to deploy. Allowed values are 4 or 6"
-  type = number
-  default = 4
+  type        = number
+  default     = 4
 }
