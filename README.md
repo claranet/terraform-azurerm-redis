@@ -12,7 +12,8 @@ on the [Premium tier](https://docs.microsoft.com/en-us/azure/azure-cache-for-red
 ## Version compatibility
 
 | Module version | Terraform version | AzureRM version |
-|----------------|-------------------| --------------- |
+| -------------- | ----------------- | --------------- |
+| >= 5.x.x       | 0.15.x & 1.0.x    | >= 2.0          |
 | >= 4.x.x       | 0.13.x            | >= 2.0          |
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
@@ -61,6 +62,25 @@ module "redis" {
 }
 ```
 
+<!-- BEGIN_TF_DOCS -->
+## Providers
+
+| Name | Version |
+|------|---------|
+| azurerm | >= 1.44 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azurerm_redis_cache.redis](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_cache) | resource |
+| [azurerm_redis_firewall_rule.redis_fw_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_firewall_rule) | resource |
+| [azurerm_storage_account.redis_storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -106,9 +126,7 @@ module "redis" {
 | redis\_secondary\_access\_key | Redis secondary access key |
 | redis\_sku\_name | Redis SKU name |
 | redis\_ssl\_port | Redis instance SSL port |
-
+<!-- END_TF_DOCS -->
 ## Related documentation
-
-Terraform resource documentation: [www.terraform.io/docs/providers/azurerm/r/redis_cache.html](https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html)
 
 Microsoft Azure service documentation: [docs.microsoft.com/en-us/azure/azure-cache-for-redis/](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/)
