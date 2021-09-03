@@ -134,3 +134,15 @@ variable "data_persistence_storage_account_replication" {
   type        = string
   default     = "LRS"
 }
+
+variable "redis_version" {
+  description = "Redis version to deploy. Allowed values are 4 or 6"
+  type        = number
+  default     = 4
+}
+
+variable "zones" {
+  description = "A list of a one or more Availability Zones, where the Redis Cache should be allocated."
+  default     = null
+  type        = list(number)
+}

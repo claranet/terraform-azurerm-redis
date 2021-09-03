@@ -67,7 +67,7 @@ module "redis" {
 
 | Name | Version |
 |------|---------|
-| azurerm | >= 1.44 |
+| azurerm | >= 2.71 |
 
 ## Modules
 
@@ -105,10 +105,12 @@ No modules.
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | `null` | no |
 | redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference. | `map(string)` | `{}` | no |
+| redis\_version | Redis version to deploy. Allowed values are 4 or 6 | `number` | `4` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
 | sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | `string` | `"Premium"` | no |
 | stack | Name of the application stack | `string` | n/a | yes |
 | subnet\_id | The ID of the Subnet within which the Redis Cache should be deployed. Changing this forces a new resource to be created. | `string` | `null` | no |
+| zones | A list of a one or more Availability Zones, where the Redis Cache should be allocated. | `list(number)` | `null` | no |
 
 ## Outputs
 
@@ -127,6 +129,7 @@ No modules.
 | redis\_sku\_name | Redis SKU name |
 | redis\_ssl\_port | Redis instance SSL port |
 <!-- END_TF_DOCS -->
+
 ## Related documentation
 
 Microsoft Azure service documentation: [docs.microsoft.com/en-us/azure/azure-cache-for-redis/](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/)
