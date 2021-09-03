@@ -1,7 +1,7 @@
-# v4.1.0 - Unreleased
+# v4.1.0 - 2021-09-03
 
 Added
-  * AZ-553: Module now support redis version option
+  * AZ-553: Module now supports redis version option
 
 # v4.0.1 - 2021-08-27
 
