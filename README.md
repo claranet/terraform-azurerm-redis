@@ -9,7 +9,8 @@ The default configuration is an highly available [cluster of 3 shards](https://d
 and [data persistence enabled](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-how-to-premium-persistence)
 on the [Premium tier](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-premium-tier-intro).
 
-## Version compatibility
+<!-- BEGIN_TF_DOCS -->
+## Global versionning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
@@ -25,9 +26,8 @@ This module is optimized to work with the [Claranet terraform-wrapper](https://g
 which set some terraform variables in the environment needed by this module.
 More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
-You can use this module by including it this way:
 ```hcl
-module "azure-region" {
+module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
 
@@ -38,31 +38,32 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  azure_region = module.azure-region.location
-  client_name  = var.client_name
-  environment  = var.environment
-  stack        = var.stack
+  location    = module.azure_region.location
+  client_name = var.client_name
+  environment = var.environment
+  stack       = var.stack
 }
 
 module "redis" {
   source  = "claranet/redis/azurerm"
   version = "x.x.x"
 
-  client_name         = var.client_name
-  environment         = var.environment
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  stack          = var.stack
+
   resource_group_name = module.rg.resource_group_name
-  stack               = var.stack
 
   authorized_cidrs = {
     ip1 = "1.2.3.4/32"
     ip2 = "5.6.7.8/16"
   }
 }
+
 ```
 
-<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 | Name | Version |
