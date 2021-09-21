@@ -10,7 +10,7 @@ and [data persistence enabled](https://docs.microsoft.com/en-us/azure/azure-cach
 on the [Premium tier](https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-premium-tier-intro).
 
 <!-- BEGIN_TF_DOCS -->
-## Global versionning rule for Claranet Azure modules
+## Global versioning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
