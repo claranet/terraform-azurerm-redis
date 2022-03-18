@@ -1,9 +1,4 @@
 locals {
-  default_tags = {
-    "env"   = var.environment
-    "stack" = var.stack
-  }
-
   redis_family_map = {
     Basic    = "C",
     Standard = "C",

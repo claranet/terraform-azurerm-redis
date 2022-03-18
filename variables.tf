@@ -28,12 +28,6 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "extra_tags" {
-  description = "Map of extra tags"
-  type        = map(string)
-  default     = {}
-}
-
 variable "capacity" {
   description = "Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering"
   type        = number

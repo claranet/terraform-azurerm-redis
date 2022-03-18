@@ -6,6 +6,7 @@ Breaking
 
 Added
   * AZ-589: Add `diagnostic-settings` module
+  * AZ-615: Add an option to enable or disable default tags
 
 Changed
   * AZ-572: Revamp examples and improve CI

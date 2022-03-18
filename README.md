@@ -126,8 +126,9 @@ module "redis" {
 | data\_persistence\_storage\_account\_replication | Replication type for the Storage Account used for data persistence. | `string` | `"LRS"` | no |
 | data\_persistence\_storage\_account\_tier | Replication type for the Storage Account used for data persistence. | `string` | `"Premium"` | no |
 | data\_persistence\_storage\_custom\_name | Custom name for the Storage Account used for Redis data persistence. | `string` | `""` | no |
+| default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | environment | Name of the application's environnement | `string` | n/a | yes |
-| extra\_tags | Map of extra tags | `map(string)` | `{}` | no |
+| extra\_tags | Additional tags to associate. | `map(string)` | `{}` | no |
 | location | Azure region in which instance will be hosted | `string` | n/a | yes |
 | location\_short | Azure region trigram | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
