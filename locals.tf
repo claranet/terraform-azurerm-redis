@@ -4,16 +4,6 @@ locals {
     "stack" = var.stack
   }
 
-  name_prefix  = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""
-  default_name = lower("${local.name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}")
-
-  name = coalesce(var.custom_name, "${local.default_name}-redis")
-
-  storage_name = coalesce(
-    var.data_persistence_storage_custom_name,
-    substr(replace("redis${local.default_name}st", "/[._-]/", ""), 0, 24)
-  )
-
   redis_family_map = {
     Basic    = "C",
     Standard = "C",
@@ -28,5 +18,6 @@ locals {
     rdb_backup_frequency          = local.data_persistence_enabled ? var.data_persistence_frequency_in_minutes : null
     rdb_backup_max_snapshot_count = local.data_persistence_enabled ? var.data_persistence_max_snapshot_count : null
   }
+
   redis_config = merge(local.default_redis_config, var.redis_additional_configuration)
 }
