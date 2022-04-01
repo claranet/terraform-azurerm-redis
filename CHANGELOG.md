@@ -1,5 +1,13 @@
 # Unreleased
 
+Breaking
+  * AZ-515: Option to use Azure CAF naming provider to name resources
+  * AZ-515: Require Terraform 0.13+
+
+Added
+  * AZ-589: Add `diagnostic-settings` module
+  * AZ-615: Add an option to enable or disable default tags
+
 Changed
   * AZ-572: Revamp examples and improve CI
 

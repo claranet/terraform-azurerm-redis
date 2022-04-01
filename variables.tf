@@ -28,24 +28,6 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "custom_name" {
-  description = "Custom name of redis server"
-  type        = string
-  default     = ""
-}
-
-variable "name_prefix" {
-  description = "Optional prefix for the generated name"
-  type        = string
-  default     = ""
-}
-
-variable "extra_tags" {
-  description = "Map of extra tags"
-  type        = map(string)
-  default     = {}
-}
-
 variable "capacity" {
   description = "Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering"
   type        = number
@@ -117,11 +99,6 @@ variable "data_persistence_max_snapshot_count" {
   default     = null
 }
 
-variable "data_persistence_storage_custom_name" {
-  description = "Custom name for the Storage Account used for Redis data persistence."
-  type        = string
-  default     = ""
-}
 
 variable "data_persistence_storage_account_tier" {
   description = "Replication type for the Storage Account used for data persistence."
