@@ -56,6 +56,7 @@ output "redis_capacity" {
 }
 
 output "redis_configuration" {
+  sensitive   = true
   value       = azurerm_redis_cache.redis.redis_configuration
   description = "Redis configuration"
 }
