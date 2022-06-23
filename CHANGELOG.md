@@ -1,3 +1,8 @@
+# v5.0.1 - 2022-06-23
+
+Fixed
+  * [GITHUB-3](https://github.com/claranet/terraform-azurerm-redis/pull/3): Add sensitive option to `redis_configuration` output that causes error with Terraform `v1.0+`
+
 # v5.0.0 - 2022-03-31
 
 Breaking
