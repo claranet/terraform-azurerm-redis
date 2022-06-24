@@ -90,7 +90,7 @@ module "redis" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | >= 2.71 |
+| azurerm | ~> 3.0 |
 
 ## Modules
 
