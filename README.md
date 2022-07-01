@@ -164,6 +164,7 @@ module "redis" {
 | redis\_secondary\_access\_key | Redis secondary access key |
 | redis\_sku\_name | Redis SKU name |
 | redis\_ssl\_port | Redis instance SSL port |
+| terraform\_module | Information about this Terraform module |
 <!-- END_TF_DOCS -->
 
 ## Related documentation
