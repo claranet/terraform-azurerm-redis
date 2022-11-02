@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-883: Lint code, fix deprecated HCL syntax
+
 # v6.0.0 - 2022-07-01
 
 Breaking
