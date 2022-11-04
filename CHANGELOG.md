@@ -1,4 +1,4 @@
-# Unreleased
+# v7.0.0 - 2022-11-04
 
 Breaking
   * AZ-840: Require Terraform 1.3+, bump `diagnostics-settings`
