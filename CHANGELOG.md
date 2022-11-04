@@ -1,5 +1,8 @@
 # Unreleased
 
+Breaking
+  * AZ-840: Require Terraform 1.3+, bump `diagnostics-settings`
+
 Fixed
   * AZ-883: Lint code, fix deprecated HCL syntax
 
