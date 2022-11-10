@@ -1,4 +1,4 @@
-# Unreleased
+# v7.1.0 - 2022-11-10
 
 Changed
   * AZ-901: Force minimum TLS version to 1.2 for storage account
