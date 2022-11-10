@@ -48,5 +48,7 @@ resource "azurerm_storage_account" "redis_storage" {
   account_replication_type = var.data_persistence_storage_account_replication
   account_kind             = "StorageV2"
 
+  min_tls_version = "TLS1_2"
+
   tags = merge(local.default_tags, var.extra_tags)
 }
