@@ -48,8 +48,22 @@ variable "cluster_shard_count" {
 
 variable "redis_additional_configuration" {
   description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference."
-  type        = map(string)
-  default     = {}
+  type = object({
+    aof_backup_enabled              = optional(bool)
+    aof_storage_connection_string_0 = optional(string)
+    aof_storage_connection_string_1 = optional(string)
+    enable_authentication           = optional(bool)
+    maxmemory_reserved              = optional(number)
+    maxmemory_delta                 = optional(number)
+    maxmemory_policy                = optional(string)
+    maxfragmentationmemory_reserved = optional(number)
+    rdb_backup_enabled              = optional(bool)
+    rdb_backup_frequency            = optional(number)
+    rdb_backup_max_snapshot_count   = optional(number)
+    rdb_storage_connection_string   = optional(string)
+    notify_keyspace_events          = optional(string)
+  })
+  default = {}
 }
 
 variable "authorized_cidrs" {
@@ -122,4 +136,15 @@ variable "zones" {
   description = "A list of a one or more Availability Zones, where the Redis Cache should be allocated."
   default     = null
   type        = list(number)
+}
+
+variable "patch_schedules" {
+  description = "A list of Patch Schedule, Azure Cache for Redis patch schedule is used to install important software updates in specified time window."
+  default     = []
+  nullable    = false
+  type = list(object({
+    day_of_week        = string
+    start_hour_utc     = optional(string)
+    maintenance_window = optional(string)
+  }))
 }

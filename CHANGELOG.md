@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-981 Add support for `patch_schedules`
+
 # v7.2.0 - 2022-11-23
 
 Changed
@@ -86,7 +91,7 @@ Added
 
 Added
   * AZ-212: Additional outputs
-  
+
 Updated
   * AZ-206: Pin version AzureRM to be usable with version < 2
 
