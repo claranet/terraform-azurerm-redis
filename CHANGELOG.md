@@ -1,7 +1,7 @@
-# Unreleased
+# v7.3.0 - 2023-01-20
 
 Added
-  * AZ-981 Add support for `patch_schedules`
+  * AZ-981: Add support for `patch_schedules`
 
 # v7.2.0 - 2022-11-23
 
