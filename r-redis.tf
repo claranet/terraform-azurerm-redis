@@ -19,21 +19,36 @@ resource "azurerm_redis_cache" "redis" {
 
   tags = merge(local.default_tags, var.extra_tags)
 
-  redis_configuration {
-    enable_authentication           = lookup(local.redis_config, "enable_authentication", null)
-    maxfragmentationmemory_reserved = lookup(local.redis_config, "maxfragmentationmemory_reserved", null)
-    maxmemory_delta                 = lookup(local.redis_config, "maxmemory_delta", null)
-    maxmemory_policy                = lookup(local.redis_config, "maxmemory_policy", null)
-    maxmemory_reserved              = lookup(local.redis_config, "maxmemory_reserved", null)
-    notify_keyspace_events          = lookup(local.redis_config, "notify_keyspace_events", null)
-    rdb_backup_enabled              = lookup(local.redis_config, "rdb_backup_enabled", null)
-    rdb_backup_frequency            = lookup(local.redis_config, "rdb_backup_frequency", null)
-    rdb_backup_max_snapshot_count   = lookup(local.redis_config, "rdb_backup_max_snapshot_count", null)
-    rdb_storage_connection_string   = lookup(local.redis_config, "rdb_storage_connection_string", null)
+  dynamic "redis_configuration" {
+    for_each = local.redis_config[*]
+    content {
+      aof_backup_enabled              = redis_configuration.value.aof_backup_enabled
+      aof_storage_connection_string_0 = redis_configuration.value.aof_storage_connection_string_0
+      aof_storage_connection_string_1 = redis_configuration.value.aof_storage_connection_string_1
+      enable_authentication           = redis_configuration.value.enable_authentication
+      maxmemory_reserved              = redis_configuration.value.maxmemory_reserved
+      maxmemory_delta                 = redis_configuration.value.maxmemory_delta
+      maxmemory_policy                = redis_configuration.value.maxmemory_policy
+      maxfragmentationmemory_reserved = redis_configuration.value.maxfragmentationmemory_reserved
+      rdb_backup_enabled              = redis_configuration.value.rdb_backup_enabled
+      rdb_backup_frequency            = redis_configuration.value.rdb_backup_frequency
+      rdb_backup_max_snapshot_count   = redis_configuration.value.rdb_backup_max_snapshot_count
+      rdb_storage_connection_string   = redis_configuration.value.rdb_storage_connection_string
+      notify_keyspace_events          = redis_configuration.value.notify_keyspace_events
+    }
   }
 
   lifecycle {
     ignore_changes = [redis_configuration[0].rdb_storage_connection_string]
+  }
+
+  dynamic "patch_schedule" {
+    for_each = var.patch_schedules
+    content {
+      day_of_week        = patch_schedule.value.day_of_week
+      start_hour_utc     = patch_schedule.value.start_hour_utc
+      maintenance_window = patch_schedule.value.maintenance_window
+    }
   }
 }
 
