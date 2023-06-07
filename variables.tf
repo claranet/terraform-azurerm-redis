@@ -66,6 +66,12 @@ variable "redis_additional_configuration" {
   default = {}
 }
 
+variable "public_network_access_enabled" {
+  description = "Whether or not public network access is allowed for this Redis Cache. `true` means this resource could be accessed by both public and private endpoint. `false` means only private endpoint access is allowed."
+  type        = bool
+  default     = false
+}
+
 variable "authorized_cidrs" {
   description = "Map of authorized cidrs"
   type        = map(string)

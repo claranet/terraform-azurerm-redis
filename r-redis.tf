@@ -11,8 +11,9 @@ resource "azurerm_redis_cache" "redis" {
   shard_count         = var.sku_name == "Premium" ? var.cluster_shard_count : 0
   capacity            = var.capacity
 
-  private_static_ip_address = var.private_static_ip_address
-  subnet_id                 = var.subnet_id
+  public_network_access_enabled = var.public_network_access_enabled
+  private_static_ip_address     = var.private_static_ip_address
+  subnet_id                     = var.subnet_id
 
   redis_version = var.redis_version
   zones         = var.zones
