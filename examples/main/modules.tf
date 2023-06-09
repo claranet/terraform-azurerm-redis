@@ -39,7 +39,7 @@ module "redis" {
 
   resource_group_name = module.rg.resource_group_name
 
-  authorized_cidrs = {
+  allowed_cidrs = {
     ip1 = "1.2.3.4/32"
     ip2 = "5.6.7.8/16"
   }

@@ -66,17 +66,6 @@ variable "redis_additional_configuration" {
   default = {}
 }
 
-variable "public_network_access_enabled" {
-  description = "Whether or not public network access is allowed for this Redis Cache. `true` means this resource could be accessed by both public and private endpoint. `false` means only private endpoint access is allowed."
-  type        = bool
-  default     = false
-}
-
-variable "authorized_cidrs" {
-  description = "Map of authorized cidrs"
-  type        = map(string)
-}
-
 variable "allow_non_ssl_connections" {
   description = "Activate non SSL port (6779) for Redis connection"
   type        = bool
@@ -87,18 +76,6 @@ variable "minimum_tls_version" {
   description = "The minimum TLS version"
   type        = string
   default     = "1.2"
-}
-
-variable "private_static_ip_address" {
-  description = "The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created."
-  type        = string
-  default     = null
-}
-
-variable "subnet_id" {
-  description = "The ID of the Subnet within which the Redis Cache should be deployed. Changing this forces a new resource to be created."
-  type        = string
-  default     = null
 }
 
 variable "data_persistence_enabled" {
