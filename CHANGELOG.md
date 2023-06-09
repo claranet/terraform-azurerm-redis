@@ -1,3 +1,9 @@
+# Unreleased
+
+Added
+  * AZ-1092: Add support for variable `public_network_access_enabled`
+  * AZ-1092: Change variable name `authorized_cidrs` for `allowed_cidrs`
+
 # v7.3.0 - 2023-01-20
 
 Added

@@ -77,7 +77,7 @@ module "redis" {
 
   resource_group_name = module.rg.resource_group_name
 
-  authorized_cidrs = {
+  allowed_cidrs = {
     ip1 = "1.2.3.4/32"
     ip2 = "5.6.7.8/16"
   }
@@ -122,7 +122,7 @@ module "redis" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | allow\_non\_ssl\_connections | Activate non SSL port (6779) for Redis connection | `bool` | `false` | no |
-| authorized\_cidrs | Map of authorized cidrs | `map(string)` | n/a | yes |
+| allowed\_cidrs | List of allowed CIDR ranges to access the Azure Redis Cache resource. | `map(string)` | `{}` | no |
 | capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | `number` | `2` | no |
 | client\_name | Name of the client | `string` | n/a | yes |
 | cluster\_shard\_count | Number of cluster shards desired | `number` | `3` | no |
@@ -148,6 +148,7 @@ module "redis" {
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | patch\_schedules | A list of Patch Schedule, Azure Cache for Redis patch schedule is used to install important software updates in specified time window. | <pre>list(object({<br>    day_of_week        = string<br>    start_hour_utc     = optional(string)<br>    maintenance_window = optional(string)<br>  }))</pre> | `[]` | no |
 | private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | `null` | no |
+| public\_network\_access\_enabled | Whether the Azure Redis Cache is available from public network. | `bool` | `false` | no |
 | redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference. | <pre>object({<br>    aof_backup_enabled              = optional(bool)<br>    aof_storage_connection_string_0 = optional(string)<br>    aof_storage_connection_string_1 = optional(string)<br>    enable_authentication           = optional(bool)<br>    maxmemory_reserved              = optional(number)<br>    maxmemory_delta                 = optional(number)<br>    maxmemory_policy                = optional(string)<br>    maxfragmentationmemory_reserved = optional(number)<br>    rdb_backup_enabled              = optional(bool)<br>    rdb_backup_frequency            = optional(number)<br>    rdb_backup_max_snapshot_count   = optional(number)<br>    rdb_storage_connection_string   = optional(string)<br>    notify_keyspace_events          = optional(string)<br>  })</pre> | `{}` | no |
 | redis\_version | Redis version to deploy. Allowed values are 4 or 6 | `number` | `4` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
