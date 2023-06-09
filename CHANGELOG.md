@@ -1,4 +1,4 @@
-# Unreleased
+# v7.4.0 - 2023-06-09
 
 Added
   * AZ-1092: Add support for variable `public_network_access_enabled`
