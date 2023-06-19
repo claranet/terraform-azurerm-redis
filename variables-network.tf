@@ -6,8 +6,8 @@ variable "public_network_access_enabled" {
 
 variable "allowed_cidrs" {
   description = "List of allowed CIDR ranges to access the Azure Redis Cache resource."
-  type        = map(string)
-  default     = {}
+  type        = list(string)
+  default     = []
 }
 
 variable "subnet_id" {

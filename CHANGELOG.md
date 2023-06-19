@@ -1,3 +1,8 @@
+# Unreleased
+
+Changed
+  * AZ-1105: Change variable type `allowed_cidrs` from map to list
+
 # v7.4.0 - 2023-06-09
 
 Added

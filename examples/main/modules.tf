@@ -39,10 +39,7 @@ module "redis" {
 
   resource_group_name = module.rg.resource_group_name
 
-  allowed_cidrs = {
-    ip1 = "1.2.3.4/32"
-    ip2 = "5.6.7.8/16"
-  }
+  allowed_cidrs = ["1.2.3.4/32", "5.6.7.8/16"]
 
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
