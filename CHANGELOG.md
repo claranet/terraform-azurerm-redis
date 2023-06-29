@@ -3,6 +3,9 @@
 Changed
   * AZ-1105: Change variable type `allowed_cidrs` from map to list
 
+Added
+  * AZ-1105: Add outputs for primary and secondary connection string
+
 # v7.4.0 - 2023-06-09
 
 Added

@@ -167,8 +167,10 @@ module "redis" {
 | redis\_name | Redis instance name |
 | redis\_port | Redis instance port |
 | redis\_primary\_access\_key | Redis primary access key |
+| redis\_primary\_connection\_string | The primary connection string of the Redis Instance. |
 | redis\_private\_static\_ip\_address | Redis private static IP address |
 | redis\_secondary\_access\_key | Redis secondary access key |
+| redis\_secondary\_connection\_string | The secondary connection string of the Redis Instance. |
 | redis\_sku\_name | Redis SKU name |
 | redis\_ssl\_port | Redis instance SSL port |
 | terraform\_module | Information about this Terraform module |
