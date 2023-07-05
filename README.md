@@ -119,7 +119,7 @@ module "redis" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | allow\_non\_ssl\_connections | Activate non SSL port (6779) for Redis connection | `bool` | `false` | no |
-| allowed\_cidrs | List of allowed CIDR ranges to access the Azure Redis Cache resource. | `list(string)` | `[]` | no |
+| allowed\_cidrs | List of allowed CIDR ranges to access the Azure Redis Cache resource. | `any` | `[]` | no |
 | capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | `number` | `2` | no |
 | client\_name | Name of the client | `string` | n/a | yes |
 | cluster\_shard\_count | Number of cluster shards desired | `number` | `3` | no |

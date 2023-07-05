@@ -19,7 +19,7 @@ data "azurecaf_name" "data_storage" {
 }
 
 data "azurecaf_name" "redis_fw_rule" {
-  for_each = toset(var.allowed_cidrs)
+  for_each = local.allowed_cidrs
 
   name          = var.stack
   resource_type = "azurerm_redis_firewall_rule"
