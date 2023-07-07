@@ -6,8 +6,13 @@ variable "public_network_access_enabled" {
 
 variable "allowed_cidrs" {
   description = "List of allowed CIDR ranges to access the Azure Redis Cache resource."
-  type        = map(string)
-  default     = {}
+  type        = any
+  default     = []
+  validation {
+    condition     = can(tomap(var.allowed_cidrs)) || can(tolist(var.allowed_cidrs))
+    error_message = "The `allowed_cidrs` argument must either be list(string) or map(string) of CIDRs."
+  }
+
 }
 
 variable "subnet_id" {

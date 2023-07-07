@@ -4,7 +4,4 @@ environment         = "test"
 stack               = "ci"
 client_name         = "test"
 resource_group_name = "rg-test"
-allowed_cidrs = {
-  "ip1" = "192.168.0.0/24",
-  "ip2" = "192.168.1.0/24"
-}
+allowed_cidrs       = ["192.168.0.0/24", "192.168.1.0/24"]

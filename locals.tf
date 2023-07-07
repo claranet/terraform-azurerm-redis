@@ -15,4 +15,6 @@ locals {
   }
 
   redis_config = merge(local.default_redis_config, var.redis_additional_configuration)
+
+  allowed_cidrs = try(can(tomap(var.allowed_cidrs)) ? tomap(var.allowed_cidrs) : { for x in var.allowed_cidrs : index(var.allowed_cidrs, x) => x }, {})
 }

@@ -77,10 +77,7 @@ module "redis" {
 
   resource_group_name = module.rg.resource_group_name
 
-  allowed_cidrs = {
-    ip1 = "1.2.3.4/32"
-    ip2 = "5.6.7.8/16"
-  }
+  allowed_cidrs = ["1.2.3.4/32", "5.6.7.8/16"]
 
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
@@ -122,7 +119,7 @@ module "redis" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | allow\_non\_ssl\_connections | Activate non SSL port (6779) for Redis connection | `bool` | `false` | no |
-| allowed\_cidrs | List of allowed CIDR ranges to access the Azure Redis Cache resource. | `map(string)` | `{}` | no |
+| allowed\_cidrs | List of allowed CIDR ranges to access the Azure Redis Cache resource. | `any` | `[]` | no |
 | capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | `number` | `2` | no |
 | client\_name | Name of the client | `string` | n/a | yes |
 | cluster\_shard\_count | Number of cluster shards desired | `number` | `3` | no |
@@ -170,8 +167,10 @@ module "redis" {
 | redis\_name | Redis instance name |
 | redis\_port | Redis instance port |
 | redis\_primary\_access\_key | Redis primary access key |
+| redis\_primary\_connection\_string | The primary connection string of the Redis Instance. |
 | redis\_private\_static\_ip\_address | Redis private static IP address |
 | redis\_secondary\_access\_key | Redis secondary access key |
+| redis\_secondary\_connection\_string | The secondary connection string of the Redis Instance. |
 | redis\_sku\_name | Redis SKU name |
 | redis\_ssl\_port | Redis instance SSL port |
 | terraform\_module | Information about this Terraform module |
