@@ -1,3 +1,8 @@
+# Unreleased
+
+Changed
+  * AZ-1188: Bump default Redis version to 6 as v4 is being retired and no longer supports creating new instances
+
 # v7.6.0 - 2023-09-08
 
 Breaking
