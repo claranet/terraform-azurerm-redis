@@ -110,7 +110,7 @@ variable "data_persistence_storage_account_replication" {
 }
 
 variable "redis_version" {
-  description = "Redis version to deploy. Allowed values are 4 or 6. Redis v4 is being retired and no longer support creating new instances."
+  description = "Redis version to deploy. Allowed value is only 6 for new instances since v4 deprecation."
   type        = number
   default     = 6
 }
