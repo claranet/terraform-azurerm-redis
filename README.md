@@ -95,7 +95,7 @@ module "redis" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | ~> 3.39 |
+| azurerm | ~> 3.83 |
 
 ## Modules
 
@@ -145,7 +145,7 @@ module "redis" {
 | patch\_schedules | A list of Patch Schedule, Azure Cache for Redis patch schedule is used to install important software updates in specified time window. | <pre>list(object({<br>    day_of_week        = string<br>    start_hour_utc     = optional(string)<br>    maintenance_window = optional(string)<br>  }))</pre> | `[]` | no |
 | private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | `null` | no |
 | public\_network\_access\_enabled | Whether the Azure Redis Cache is available from public network. | `bool` | `false` | no |
-| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference. | <pre>object({<br>    aof_backup_enabled              = optional(bool)<br>    aof_storage_connection_string_0 = optional(string)<br>    aof_storage_connection_string_1 = optional(string)<br>    enable_authentication           = optional(bool)<br>    maxmemory_reserved              = optional(number)<br>    maxmemory_delta                 = optional(number)<br>    maxmemory_policy                = optional(string)<br>    maxfragmentationmemory_reserved = optional(number)<br>    rdb_backup_enabled              = optional(bool)<br>    rdb_backup_frequency            = optional(number)<br>    rdb_backup_max_snapshot_count   = optional(number)<br>    rdb_storage_connection_string   = optional(string)<br>    notify_keyspace_events          = optional(string)<br>  })</pre> | `{}` | no |
+| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference. | <pre>object({<br>    aof_backup_enabled                      = optional(bool)<br>    aof_storage_connection_string_0         = optional(string)<br>    aof_storage_connection_string_1         = optional(string)<br>    enable_authentication                   = optional(bool)<br>    active_directory_authentication_enabled = optional(bool)<br>    maxmemory_reserved                      = optional(number)<br>    maxmemory_delta                         = optional(number)<br>    maxmemory_policy                        = optional(string)<br>    maxfragmentationmemory_reserved         = optional(number)<br>    rdb_backup_enabled                      = optional(bool)<br>    rdb_backup_frequency                    = optional(number)<br>    rdb_backup_max_snapshot_count           = optional(number)<br>    rdb_storage_connection_string           = optional(string)<br>    notify_keyspace_events                  = optional(string)<br>  })</pre> | `{}` | no |
 | redis\_version | Redis version to deploy. Allowed value is only 6 for new instances since v4 deprecation. | `number` | `6` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
 | sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | `string` | `"Premium"` | no |

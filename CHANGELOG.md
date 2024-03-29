@@ -1,3 +1,8 @@
+# XXX
+
+Added
+  * AZ-1383: Add `active_directory_authentication_enabled` to `redis_configuration` block, up AzureRM minimum version to 3.83.0
+
 # v7.7.0 - 2023-09-29
 
 Changed
