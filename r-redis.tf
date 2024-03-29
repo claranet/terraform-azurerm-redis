@@ -3,7 +3,7 @@ resource "azurerm_redis_cache" "redis" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  family   = lookup(local.redis_family_map, var.sku_name)
+  family   = local.redis_family_map[var.sku_name]
   sku_name = var.sku_name
 
   enable_non_ssl_port = var.allow_non_ssl_connections
@@ -23,19 +23,20 @@ resource "azurerm_redis_cache" "redis" {
   dynamic "redis_configuration" {
     for_each = local.redis_config[*]
     content {
-      aof_backup_enabled              = redis_configuration.value.aof_backup_enabled
-      aof_storage_connection_string_0 = redis_configuration.value.aof_storage_connection_string_0
-      aof_storage_connection_string_1 = redis_configuration.value.aof_storage_connection_string_1
-      enable_authentication           = redis_configuration.value.enable_authentication
-      maxmemory_reserved              = redis_configuration.value.maxmemory_reserved
-      maxmemory_delta                 = redis_configuration.value.maxmemory_delta
-      maxmemory_policy                = redis_configuration.value.maxmemory_policy
-      maxfragmentationmemory_reserved = redis_configuration.value.maxfragmentationmemory_reserved
-      rdb_backup_enabled              = redis_configuration.value.rdb_backup_enabled
-      rdb_backup_frequency            = redis_configuration.value.rdb_backup_frequency
-      rdb_backup_max_snapshot_count   = redis_configuration.value.rdb_backup_max_snapshot_count
-      rdb_storage_connection_string   = redis_configuration.value.rdb_storage_connection_string
-      notify_keyspace_events          = redis_configuration.value.notify_keyspace_events
+      aof_backup_enabled                      = redis_configuration.value.aof_backup_enabled
+      aof_storage_connection_string_0         = redis_configuration.value.aof_storage_connection_string_0
+      aof_storage_connection_string_1         = redis_configuration.value.aof_storage_connection_string_1
+      enable_authentication                   = redis_configuration.value.enable_authentication
+      active_directory_authentication_enabled = redis_configuration.value.active_directory_authentication_enabled
+      maxmemory_reserved                      = redis_configuration.value.maxmemory_reserved
+      maxmemory_delta                         = redis_configuration.value.maxmemory_delta
+      maxmemory_policy                        = redis_configuration.value.maxmemory_policy
+      maxfragmentationmemory_reserved         = redis_configuration.value.maxfragmentationmemory_reserved
+      rdb_backup_enabled                      = redis_configuration.value.rdb_backup_enabled
+      rdb_backup_frequency                    = redis_configuration.value.rdb_backup_frequency
+      rdb_backup_max_snapshot_count           = redis_configuration.value.rdb_backup_max_snapshot_count
+      rdb_storage_connection_string           = redis_configuration.value.rdb_storage_connection_string
+      notify_keyspace_events                  = redis_configuration.value.notify_keyspace_events
     }
   }
 
