@@ -1,3 +1,25 @@
+## 7.8.1 (2024-04-26)
+
+
+### Styles
+
+* **output:** remove unused version from outputs-module fa17b7b
+
+
+### Continuous Integration
+
+* **AZ-1391:** enable semantic-release [skip ci] 5f52b5f
+* **AZ-1391:** update semantic-release config [skip ci] 9e25e07
+
+
+### Miscellaneous Chores
+
+* **deps:** enable automerge on renovate a129321
+* **deps:** update dependency trivy to v0.50.2 4da1fa2
+* **deps:** update dependency trivy to v0.50.4 978dab2
+* **pre-commit:** update commitlint hook c6a9740
+* **release:** remove legacy `VERSION` file f074b0a
+
 # v7.8.0 - 2024-03-29
 
 Added
