@@ -1,3 +1,58 @@
+## 7.9.0 (2024-10-03)
+
+### Features
+
+* use Claranet "azurecaf" provider 3796499
+
+### Documentation
+
+* update README badge to use OpenTofu registry 31fbc21
+* update README with `terraform-docs` v0.19.0 80fe29b
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.7.0 d0f845f
+* **deps:** update dependency opentofu to v1.7.1 e158dbe
+* **deps:** update dependency opentofu to v1.7.2 cffdd40
+* **deps:** update dependency opentofu to v1.7.3 98356c0
+* **deps:** update dependency opentofu to v1.8.0 fb116da
+* **deps:** update dependency opentofu to v1.8.1 bdb9e02
+* **deps:** update dependency pre-commit to v3.7.1 46df252
+* **deps:** update dependency pre-commit to v3.8.0 42faa49
+* **deps:** update dependency terraform-docs to v0.18.0 ba73327
+* **deps:** update dependency terraform-docs to v0.19.0 7fd97b8
+* **deps:** update dependency tflint to v0.51.0 99bc9f5
+* **deps:** update dependency tflint to v0.51.1 86836c2
+* **deps:** update dependency tflint to v0.51.2 1c7eb89
+* **deps:** update dependency tflint to v0.52.0 9749244
+* **deps:** update dependency tflint to v0.53.0 3561a8a
+* **deps:** update dependency trivy to v0.51.0 bc9cdc7
+* **deps:** update dependency trivy to v0.51.1 6bb45d4
+* **deps:** update dependency trivy to v0.51.2 cc69d4c
+* **deps:** update dependency trivy to v0.51.4 e4c9bb5
+* **deps:** update dependency trivy to v0.52.0 835980b
+* **deps:** update dependency trivy to v0.52.1 bff96a5
+* **deps:** update dependency trivy to v0.52.2 4eea620
+* **deps:** update dependency trivy to v0.53.0 539d78a
+* **deps:** update dependency trivy to v0.54.1 6d94a4e
+* **deps:** update dependency trivy to v0.55.0 f2f1288
+* **deps:** update dependency trivy to v0.55.1 1a85b50
+* **deps:** update dependency trivy to v0.55.2 c4bdd86
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.17.0 564b4e2
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.18.0 dac04e7
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.92.0 dd7a352
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.92.1 88dacba
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.92.2 2fc0a45
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.92.3 3996262
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.93.0 98b57a1
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.94.0 f949cb7
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.94.1 a208088
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.94.3 494a4ca
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.95.0 dc2120a
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.96.0 1c34ad9
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.96.1 12017df
+* **deps:** update tools 0b6c620
+
 ## 7.8.1 (2024-04-26)
 
 
