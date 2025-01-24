@@ -40,35 +40,6 @@ More details about variables set by the `terraform-wrapper` available in the [do
 [Hashicorp Terraform](https://github.com/hashicorp/terraform/). Instead, we recommend to use [OpenTofu](https://github.com/opentofu/opentofu/).
 
 ```hcl
-module "azure_region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  location    = module.azure_region.location
-  client_name = var.client_name
-  environment = var.environment
-  stack       = var.stack
-}
-
-module "logs" {
-  source  = "claranet/run/azurerm//modules/logs"
-  version = "x.x.x"
-
-  client_name         = var.client_name
-  environment         = var.environment
-  stack               = var.stack
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
-}
-
 module "redis" {
   source  = "claranet/redis/azurerm"
   version = "x.x.x"
@@ -79,13 +50,13 @@ module "redis" {
   location_short = module.azure_region.location_short
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   allowed_cidrs = ["1.2.3.4/32", "5.6.7.8/16"]
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    module.logs.storage_account_id,
+    module.logs.id
   ]
 
   extra_tags = {
@@ -98,22 +69,22 @@ module "redis" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | ~> 3.83 |
+| azurecaf | ~> 1.2.28 |
+| azurerm | ~> 4.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | ~> 7.0.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [azurerm_redis_cache.redis](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_cache) | resource |
-| [azurerm_redis_firewall_rule.redis_fw_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_firewall_rule) | resource |
-| [azurerm_storage_account.redis_storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
+| [azurerm_redis_cache.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_cache) | resource |
+| [azurerm_redis_firewall_rule.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_firewall_rule) | resource |
+| [azurerm_storage_account.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
 | [azurecaf_name.data_storage](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.redis](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.redis_fw_rule](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
@@ -122,12 +93,10 @@ module "redis" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| allow\_non\_ssl\_connections | Activate non SSL port (6779) for Redis connection | `bool` | `false` | no |
 | allowed\_cidrs | List of allowed CIDR ranges to access the Azure Redis Cache resource. | `any` | `[]` | no |
-| capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering | `number` | `2` | no |
-| client\_name | Name of the client | `string` | n/a | yes |
-| cluster\_shard\_count | Number of cluster shards desired | `number` | `3` | no |
-| custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
+| capacity | Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  [documentation](https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering). | `number` | `2` | no |
+| client\_name | Client name/account used in naming. | `string` | n/a | yes |
+| cluster\_shard\_count | Number of cluster shards desired. | `number` | `3` | no |
 | custom\_name | Custom name of Redis Server | `string` | `""` | no |
 | data\_persistence\_enabled | "true" to enable data persistence. | `bool` | `true` | no |
 | data\_persistence\_frequency\_in\_minutes | Data persistence snapshot frequency in minutes. | `number` | `60` | no |
@@ -136,47 +105,51 @@ module "redis" {
 | data\_persistence\_storage\_account\_tier | Replication type for the Storage Account used for data persistence. | `string` | `"Premium"` | no |
 | data\_persistence\_storage\_custom\_name | Custom name for the Storage Account used for Redis data persistence. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
-| environment | Name of the application's environnement | `string` | n/a | yes |
+| diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be `default` if not set. | `string` | `"default"` | no |
+| environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Additional tags to associate. | `map(string)` | `{}` | no |
-| location | Azure region in which instance will be hosted | `string` | n/a | yes |
-| location\_short | Azure region trigram | `string` | n/a | yes |
+| location | Azure location. | `string` | n/a | yes |
+| location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
-| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to specify an Azure EventHub to send logs and metrics to, you need to provide a formated string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the `|` character. | `list(string)` | n/a | yes |
+| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to use Azure EventHub as a destination, you must provide a formatted string containing both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
-| minimum\_tls\_version | The minimum TLS version | `string` | `"1.2"` | no |
+| minimum\_tls\_version | The minimum TLS version. | `string` | `"1.2"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
+| non\_ssl\_port\_enabled | Activate non SSL port (6779) for Redis connection. | `bool` | `false` | no |
 | patch\_schedules | A list of Patch Schedule, Azure Cache for Redis patch schedule is used to install important software updates in specified time window. | <pre>list(object({<br/>    day_of_week        = string<br/>    start_hour_utc     = optional(string)<br/>    maintenance_window = optional(string)<br/>  }))</pre> | `[]` | no |
 | private\_static\_ip\_address | The Static IP Address to assign to the Redis Cache when hosted inside the Virtual Network. Changing this forces a new resource to be created. | `string` | `null` | no |
 | public\_network\_access\_enabled | Whether the Azure Redis Cache is available from public network. | `bool` | `false` | no |
-| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference. | <pre>object({<br/>    aof_backup_enabled                      = optional(bool)<br/>    aof_storage_connection_string_0         = optional(string)<br/>    aof_storage_connection_string_1         = optional(string)<br/>    enable_authentication                   = optional(bool)<br/>    active_directory_authentication_enabled = optional(bool)<br/>    maxmemory_reserved                      = optional(number)<br/>    maxmemory_delta                         = optional(number)<br/>    maxmemory_policy                        = optional(string)<br/>    maxfragmentationmemory_reserved         = optional(number)<br/>    rdb_backup_enabled                      = optional(bool)<br/>    rdb_backup_frequency                    = optional(number)<br/>    rdb_backup_max_snapshot_count           = optional(number)<br/>    rdb_storage_connection_string           = optional(string)<br/>    notify_keyspace_events                  = optional(string)<br/>  })</pre> | `{}` | no |
+| redis\_additional\_configuration | Additional configuration for the Redis instance. Some of the keys are set automatically. See [documentation](https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration) for full reference. | <pre>object({<br/>    aof_backup_enabled                      = optional(bool)<br/>    aof_storage_connection_string_0         = optional(string)<br/>    aof_storage_connection_string_1         = optional(string)<br/>    authentication_enabled                  = optional(bool)<br/>    active_directory_authentication_enabled = optional(bool)<br/>    maxmemory_reserved                      = optional(number)<br/>    maxmemory_delta                         = optional(number)<br/>    maxmemory_policy                        = optional(string)<br/>    maxfragmentationmemory_reserved         = optional(number)<br/>    rdb_backup_enabled                      = optional(bool)<br/>    rdb_backup_frequency                    = optional(number)<br/>    rdb_backup_max_snapshot_count           = optional(number)<br/>    rdb_storage_connection_string           = optional(string)<br/>    notify_keyspace_events                  = optional(string)<br/>  })</pre> | `{}` | no |
 | redis\_version | Redis version to deploy. Allowed value is only 6 for new instances since v4 deprecation. | `number` | `6` | no |
-| resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
-| sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium | `string` | `"Premium"` | no |
-| stack | Name of the application stack | `string` | n/a | yes |
+| resource\_group\_name | Resource group name. | `string` | n/a | yes |
+| sku\_name | Redis Cache Sku name. Can be Basic, Standard or Premium. | `string` | `"Premium"` | no |
+| stack | Project stack name. | `string` | n/a | yes |
 | subnet\_id | The ID of the Subnet within which the Redis Cache should be deployed. Changing this forces a new resource to be created. | `string` | `null` | no |
-| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | zones | A list of a one or more Availability Zones, where the Redis Cache should be allocated. | `list(number)` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| redis\_capacity | Redis capacity |
-| redis\_configuration | Redis configuration |
-| redis\_family | Redis family |
-| redis\_hostname | Redis instance hostname |
-| redis\_id | Redis instance id |
-| redis\_name | Redis instance name |
-| redis\_port | Redis instance port |
-| redis\_primary\_access\_key | Redis primary access key |
-| redis\_primary\_connection\_string | The primary connection string of the Redis Instance. |
-| redis\_private\_static\_ip\_address | Redis private static IP address |
-| redis\_secondary\_access\_key | Redis secondary access key |
-| redis\_secondary\_connection\_string | The secondary connection string of the Redis Instance. |
-| redis\_sku\_name | Redis SKU name |
-| redis\_ssl\_port | Redis instance SSL port |
-| terraform\_module | Information about this Terraform module |
+| capacity | Redis instance capacity. |
+| configuration | Redis instance configuration. |
+| family | Redis instance family. |
+| hostname | Redis instance hostname. |
+| id | Redis instance id. |
+| module\_diagnostics | Diagnostics settings module outputs. |
+| name | Redis instance name. |
+| port | Redis instance port. |
+| primary\_access\_key | Redis instance primary access key. |
+| primary\_connection\_string | The primary connection string of the Redis instance. |
+| private\_static\_ip\_address | Redis instance private static IP address. |
+| resource | Redis instance object. |
+| resource\_storage | Redis storage account outputs. |
+| secondary\_access\_key | Redis instance secondary access key. |
+| secondary\_connection\_string | The secondary connection string of the Redis instance. |
+| sku\_name | Redis instance SKU name. |
+| ssl\_port | Redis instance SSL port. |
+| terraform\_module | Information about this Terraform module. |
 <!-- END_TF_DOCS -->
 
 ## Related documentation
