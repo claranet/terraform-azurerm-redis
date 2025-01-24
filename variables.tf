@@ -1,58 +1,58 @@
 variable "location" {
-  description = "Azure region in which instance will be hosted"
+  description = "Azure location."
   type        = string
 }
 
 variable "location_short" {
-  description = "Azure region trigram"
-  type        = string
-}
-
-variable "environment" {
-  description = "Name of the application's environnement"
-  type        = string
-}
-
-variable "stack" {
-  description = "Name of the application stack"
+  description = "Short string for Azure location."
   type        = string
 }
 
 variable "client_name" {
-  description = "Name of the client"
+  description = "Client name/account used in naming."
+  type        = string
+}
+
+variable "environment" {
+  description = "Project environment."
+  type        = string
+}
+
+variable "stack" {
+  description = "Project stack name."
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "Name of the application ressource group, herited from infra module"
+  description = "Resource group name."
   type        = string
 }
 
 variable "capacity" {
-  description = "Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering"
+  description = "Redis size: (Basic/Standard: 1,2,3,4,5,6) (Premium: 1,2,3,4)  [documentation](https://docs.microsoft.com/fr-fr/azure/redis-cache/cache-how-to-premium-clustering)."
   type        = number
   default     = 2
 }
 
 variable "sku_name" {
-  description = "Redis Cache Sku name. Can be Basic, Standard or Premium"
+  description = "Redis Cache Sku name. Can be Basic, Standard or Premium."
   type        = string
   default     = "Premium"
 }
 
 variable "cluster_shard_count" {
-  description = "Number of cluster shards desired"
+  description = "Number of cluster shards desired."
   type        = number
   default     = 3
 }
 
 variable "redis_additional_configuration" {
-  description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration for full reference."
+  description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See [documentation](https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration) for full reference."
   type = object({
     aof_backup_enabled                      = optional(bool)
     aof_storage_connection_string_0         = optional(string)
     aof_storage_connection_string_1         = optional(string)
-    enable_authentication                   = optional(bool)
+    authentication_enabled                  = optional(bool)
     active_directory_authentication_enabled = optional(bool)
     maxmemory_reserved                      = optional(number)
     maxmemory_delta                         = optional(number)
@@ -67,14 +67,14 @@ variable "redis_additional_configuration" {
   default = {}
 }
 
-variable "allow_non_ssl_connections" {
-  description = "Activate non SSL port (6779) for Redis connection"
+variable "non_ssl_port_enabled" {
+  description = "Activate non SSL port (6779) for Redis connection."
   type        = bool
   default     = false
 }
 
 variable "minimum_tls_version" {
-  description = "The minimum TLS version"
+  description = "The minimum TLS version."
   type        = string
   default     = "1.2"
 }

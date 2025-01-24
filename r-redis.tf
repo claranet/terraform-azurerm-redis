@@ -1,4 +1,4 @@
-resource "azurerm_redis_cache" "redis" {
+resource "azurerm_redis_cache" "main" {
   name                = local.name
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -6,10 +6,10 @@ resource "azurerm_redis_cache" "redis" {
   family   = local.redis_family_map[var.sku_name]
   sku_name = var.sku_name
 
-  enable_non_ssl_port = var.allow_non_ssl_connections
-  minimum_tls_version = var.minimum_tls_version
-  shard_count         = var.sku_name == "Premium" ? var.cluster_shard_count : 0
-  capacity            = var.capacity
+  non_ssl_port_enabled = var.non_ssl_port_enabled
+  minimum_tls_version  = var.minimum_tls_version
+  shard_count          = var.sku_name == "Premium" ? var.cluster_shard_count : 0
+  capacity             = var.capacity
 
   public_network_access_enabled = var.public_network_access_enabled
   private_static_ip_address     = var.private_static_ip_address
@@ -26,7 +26,7 @@ resource "azurerm_redis_cache" "redis" {
       aof_backup_enabled                      = redis_configuration.value.aof_backup_enabled
       aof_storage_connection_string_0         = redis_configuration.value.aof_storage_connection_string_0
       aof_storage_connection_string_1         = redis_configuration.value.aof_storage_connection_string_1
-      enable_authentication                   = redis_configuration.value.enable_authentication
+      authentication_enabled                  = redis_configuration.value.authentication_enabled
       active_directory_authentication_enabled = redis_configuration.value.active_directory_authentication_enabled
       maxmemory_reserved                      = redis_configuration.value.maxmemory_reserved
       maxmemory_delta                         = redis_configuration.value.maxmemory_delta
@@ -54,7 +54,12 @@ resource "azurerm_redis_cache" "redis" {
   }
 }
 
-resource "azurerm_storage_account" "redis_storage" {
+moved {
+  from = azurerm_redis_cache.redis
+  to   = azurerm_redis_cache.main
+}
+
+resource "azurerm_storage_account" "main" {
   count = local.data_persistence_enabled ? 1 : 0
 
   name                = local.storage_name
@@ -68,4 +73,9 @@ resource "azurerm_storage_account" "redis_storage" {
   min_tls_version = "TLS1_2"
 
   tags = merge(local.default_tags, var.extra_tags)
+}
+
+moved {
+  from = azurerm_storage_account.redis_storage
+  to   = azurerm_storage_account.main
 }
