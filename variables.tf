@@ -57,6 +57,7 @@ variable "redis_additional_configuration" {
     maxmemory_reserved                      = optional(number)
     maxmemory_delta                         = optional(number)
     maxmemory_policy                        = optional(string)
+    data_persistence_authentication_method  = optional(string)
     maxfragmentationmemory_reserved         = optional(number)
     rdb_backup_enabled                      = optional(bool)
     rdb_backup_frequency                    = optional(number)
