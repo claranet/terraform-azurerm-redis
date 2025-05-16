@@ -47,7 +47,7 @@ variable "cluster_shard_count" {
 }
 
 variable "redis_additional_configuration" {
-  description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See [documentation](https://www.terraform.io/docs/providers/azurerm/r/redis_cache.html#redis_configuration) for full reference."
+  description = "Additional configuration for the Redis instance. Some of the keys are set automatically. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/redis_cache#redis_configuration) for full reference."
   type = object({
     aof_backup_enabled                      = optional(bool)
     aof_storage_connection_string_0         = optional(string)
@@ -57,6 +57,7 @@ variable "redis_additional_configuration" {
     maxmemory_reserved                      = optional(number)
     maxmemory_delta                         = optional(number)
     maxmemory_policy                        = optional(string)
+    data_persistence_authentication_method  = optional(string)
     maxfragmentationmemory_reserved         = optional(number)
     rdb_backup_enabled                      = optional(bool)
     rdb_backup_frequency                    = optional(number)

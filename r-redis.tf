@@ -31,6 +31,7 @@ resource "azurerm_redis_cache" "main" {
       maxmemory_reserved                      = redis_configuration.value.maxmemory_reserved
       maxmemory_delta                         = redis_configuration.value.maxmemory_delta
       maxmemory_policy                        = redis_configuration.value.maxmemory_policy
+      data_persistence_authentication_method  = redis_configuration.value.data_persistence_authentication_method
       maxfragmentationmemory_reserved         = redis_configuration.value.maxfragmentationmemory_reserved
       rdb_backup_enabled                      = redis_configuration.value.rdb_backup_enabled
       rdb_backup_frequency                    = redis_configuration.value.rdb_backup_frequency
