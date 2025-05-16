@@ -1,3 +1,28 @@
+## 8.1.0 (2025-05-16)
+
+### Features
+
+* **AZ-1550:** add additional configuration parameter 24313fc
+* **AZ-1550:** apply mrAI suggestion f76c199
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.9.1 c86f53d
+* **deps:** update dependency pre-commit to v4.2.0 3d4775a
+* **deps:** update dependency terraform-docs to v0.20.0 d65f874
+* **deps:** update dependency tflint to v0.57.0 4e87e30
+* **deps:** update dependency trivy to v0.59.1 78ef6e1
+* **deps:** update dependency trivy to v0.60.0 31d43e6
+* **deps:** update dependency trivy to v0.61.1 25b82df
+* **deps:** update dependency trivy to v0.62.0 079e124
+* **deps:** update dependency trivy to v0.62.1 eb36786
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 a247a05
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 a8566d1
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 032498d
+* **deps:** update tools 15aaf89
+* **deps:** update tools a54dcd0
+* update Github templates 1e73097
+
 ## 8.0.0 (2025-01-24)
 
 ### ⚠ BREAKING CHANGES
