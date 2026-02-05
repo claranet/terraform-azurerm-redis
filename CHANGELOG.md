@@ -1,3 +1,30 @@
+## 8.1.2 (2026-02-05)
+
+### Bug Fixes
+
+* **trivy:** 🐛🔒️ add default storage account rules 🔒️ d770a71
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.10.7 fbf934e
+* **deps:** update dependency opentofu to v1.11.2 097e5ed
+* **deps:** update dependency opentofu to v1.11.3 f6f3f5f
+* **deps:** update dependency opentofu to v1.11.4 6508cfa
+* **deps:** update dependency pre-commit to v4.4.0 b652361
+* **deps:** update dependency pre-commit to v4.5.0 097821f
+* **deps:** update dependency pre-commit to v4.5.1 aacbdec
+* **deps:** update dependency tflint to v0.60.0 ed7b314
+* **deps:** update dependency trivy to v0.67.1 831273a
+* **deps:** update dependency trivy to v0.67.2 34bb0ab
+* **deps:** update dependency trivy to v0.68.1 046017a
+* **deps:** update dependency trivy to v0.68.2 e5ff772
+* **deps:** update dependency trivy to v0.69.0 9edc979
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.10 b0fec8c
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.8 1a1afa7
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.9 20209e0
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.2 32db3b6
+* **deps:** update tools d45e635
+
 ## 8.1.1 (2025-10-01)
 
 ### Code Refactoring
